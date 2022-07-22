@@ -1,0 +1,12 @@
+import React from "react";
+import {NewPost} from "./NewPost";
+
+export const Posts = () => {
+    return (
+        <div>
+            <NewPost/>
+            Posts
+        </div>
+    )
+}
+
