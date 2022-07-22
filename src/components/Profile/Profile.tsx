@@ -1,11 +1,14 @@
 import React from "react";
-import styles from "./Main.module.css"
-import {Profile} from "./Profile/Profile";
+import styles from "./Profile.module.css"
+import {ProfileInfo} from "./ProfileInfo";
+import {Posts} from "./Posts/Posts";
 
-export const Main = () => {
+export const Profile = () => {
     return (
-        <div className={styles.main}>
-            <Profile/>
+        <div className={styles.profile}>
+            <ProfileInfo/>
+            <Posts/>
         </div>
     )
 }
+

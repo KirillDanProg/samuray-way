@@ -1,9 +1,18 @@
-import React from "react";
+.header {
+    position: relative;
+    grid-area: 1 / 1 / 2 / 13;
+    background-color: #4d4d4d;
+    color: palegreen;
 
-export const Header = () => {
-    return (
-        <div>
-            <h1>Header</h1>
-        </div>
-    )
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translate(0, -50%);
+    color: deeppink;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 0 0 1px white, 0 0 2px white, 0 0 4px deeppink, 0 0 8px deeppink;
 }

@@ -1,12 +1,27 @@
-import React from "react";
-import {NewPost} from "./NewPost";
-
-export const Posts = () => {
-    return (
-        <div>
-            <NewPost/>
-            Posts
-        </div>
-    )
+.form {
+    margin-top: 20px;
 }
 
+.input {
+    border: 1px solid purple;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.postContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.postImg {
+    width: 60px;
+    border-radius: 50%;
+}
+
+.postText {
+    width: 50%;
+}
+.postLikes {
+    width: 100%;
+}

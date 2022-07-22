@@ -1,4 +1,14 @@
-.main {
+.profile {
     grid-area: 2 / 3 / 3 / 13;
     background-color: #efefef;
 }
+.avatar {
+    max-width: 200px;
+    border: 3px solid deeppink;
+    border-radius: 100px;
+}
+.profileInfo {
+    display: flex;
+    gap: 20px;
+}
+

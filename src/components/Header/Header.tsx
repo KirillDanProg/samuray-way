@@ -1,9 +1,15 @@
 import React from "react";
+import styles from "./Header.module.css"
 
 export const Header = () => {
     return (
-        <div>
-            <h1>Header</h1>
+        <div className={styles.header}>
+            <Logo />
         </div>
+    )
+}
+const Logo = () => {
+    return (
+        <span className={styles.logo}>VN</span>
     )
 }
