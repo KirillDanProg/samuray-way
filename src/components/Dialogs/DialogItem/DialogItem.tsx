@@ -2,7 +2,8 @@ import React, {FC} from "react";
 import styles from "./DialogItem.module.css"
 import img from "../../../assets/images.jpeg";
 
-type DialogsPropsType = {
+export type DialogsPropsType = {
+    id: number
     name: string
     img: string
 }
