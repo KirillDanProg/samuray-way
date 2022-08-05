@@ -2,13 +2,13 @@ import React, {FC} from "react";
 import styles from "./DialogMessage.module.css";
 import img from "../../../assets/images.jpeg"
 
-export type DialogsMessagesPropsType = {
-    id: number
+type DialogMessagePropsType = {
+    id: string
     message: string
     img: typeof img
 }
+export const DialogMessage: FC<DialogMessagePropsType> = (props) => {
 
-export const DialogMessage: FC<DialogsMessagesPropsType> = (props) => {
     return (
         <div className={styles.messageContainer}>
             <img src={props.img}/>

@@ -2,13 +2,13 @@ import React, {FC} from "react";
 import styles from "./DialogItem.module.css"
 import img from "../../../assets/images.jpeg";
 
-export type DialogsPropsType = {
-    id: number
+type DialogItemPropsType = {
+    id: string
     name: string
-    img: string
+    img: typeof img
 }
 
-export const DialogItem: FC<DialogsPropsType> = (props) => {
+export const DialogItem: FC<DialogItemPropsType> = (props) => {
     return (
         <div className={styles.dialogsItemContainer}>
             <img className={styles.dialogsImg} src={props.img}/>

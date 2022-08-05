@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import styles from "./Profile.module.css"
-import {profileDataType} from "./Profile";
+import {ProfileDataType} from "../../types /types";
 
 type ProfileInfoPropsType = {
-    profileData: profileDataType
+    profileData: ProfileDataType
 }
 
 export const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
