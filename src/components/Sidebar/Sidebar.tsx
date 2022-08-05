@@ -1,24 +1,21 @@
 import React from "react";
 import styles from "./Sidebar.module.css"
-import {Link, NavLink} from "react-router-dom";
+import {NavLinkComponent} from "./NavLinkComponent";
+import {FriendType} from "../../types /types";
 
-export const Sidebar = () => {
-    let activeClassName = styles.acti
+type SideBarType = {
+    sidebar: {
+        friends: Array<FriendType>
+    }
+}
+export const Sidebar = (props: SideBarType) => {
     return (
         <div className={styles.sidebar}>
             <ul className={styles.list}>
-                <li className={styles.item}>
-                    <NavLink className={({isActive}) => (isActive ? styles.active : undefined)}
-                             to="profile">Profile</NavLink>
-                </li>
-                <li className={styles.item}>
-                    <NavLink className={({isActive}) => (isActive ? styles.active : undefined)}
-                             to="dialogs">Messages</NavLink>
-                </li>
-                <li className={styles.item}>
-                    <NavLink className={({isActive}) => (isActive ? styles.active : undefined)}
-                             to="users">Users</NavLink>
-                </li>
+                <NavLinkComponent title={"Profile"}/>
+                <NavLinkComponent title={"Dialogs"}/>
+                <NavLinkComponent title={"Users"}/>
+                <NavLinkComponent friends={props.sidebar.friends} title={"Friends"}/>
             </ul>
         </div>
     )
