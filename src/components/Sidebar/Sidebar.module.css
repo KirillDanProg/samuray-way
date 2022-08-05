@@ -16,7 +16,7 @@
 
 .item {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-size: 20px;
 }
 
@@ -30,4 +30,22 @@ a {
     color: deeppink;
     transition: 0.4s;
     transform: scale(1.2);
+}
+
+.sidebarBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.sidebarBox img {
+    width: 45px;
+    margin-top: 10px;
+    border-radius: 50%;
+
+}
+
+.sidebarBox span {
+
 }
