@@ -7,7 +7,7 @@ import {fas} from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
 type PostPropsType = {
-    id: number
+    id: string
     postText: string
     likes: number
     img: string
