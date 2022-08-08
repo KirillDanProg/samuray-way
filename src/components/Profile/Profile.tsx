@@ -3,22 +3,21 @@ import styles from "./Profile.module.css"
 import {ProfileInfo} from "./ProfileInfo";
 
 import {Posts} from "./Posts/Posts";
-import {PostDataType, ProfileDataType} from "../../types /types";
+import {ProfilePropsType} from "../../types /types";
 
 
-type ProfilePropsType = {
-    profile: {
-        profileData: ProfileDataType
-        postsData: Array<PostDataType>
-    }
 
-}
 
-export const Profile: FC<ProfilePropsType> = ({profile}) => {
+export const Profile: FC<ProfilePropsType> = ({profile, addPost, updatePostText, deletePost}) => {
     return (
         <div className={styles.profile}>
             <ProfileInfo profileData={profile.profileData}/>
-            <Posts postsData={profile.postsData}/>
+            <Posts postText={profile.postText}
+                   updatePostText={updatePostText}
+                   addPost={addPost}
+                   postsData={profile.postsData}
+                   deletePost={deletePost}
+            />
         </div>
     )
 }
