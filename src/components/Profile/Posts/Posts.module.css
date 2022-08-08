@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 3px;
+    gap: 16px;
     margin-bottom: 8px;
 }
 
@@ -22,8 +22,6 @@
 }
 
 .postText {
-    width: 50%;
 }
 .postLikes {
-    width: 100%;
 }

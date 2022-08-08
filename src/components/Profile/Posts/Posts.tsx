@@ -1,19 +1,19 @@
 import React, {FC} from "react";
 import {NewPost} from "./NewPost";
 import {Post} from "./Post";
-import {PostDataType} from "../../../types /types";
+import {PostsPropsType} from "../../../types /types";
 
-type PostsPropsType = {
-    postsData: Array<PostDataType>
-}
+
 export const Posts: FC<PostsPropsType> = (props) => {
     return (
         <div>
-            <NewPost/>
+            <NewPost postText={props.postText} addPost={props.addPost}  updatePostText={props.updatePostText}/>
             {props.postsData.map((post, i) => (
                 <Post img={post.img}
-                      key={i} id={post.id}
+                      key={i}
+                      id={post.id}
                       likes={post.likes}
+                      deletePost={props.deletePost}
                       postText={post.postText}/>
             ))}
         </div>
