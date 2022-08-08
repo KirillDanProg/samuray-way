@@ -11,10 +11,9 @@ export const NavLinkComponent: FC<NavLinkComponentType> = ({title, ...props}) =>
                 {
                     props.friends && props.friends.map(el => {
                             return <div key={el.id} className={styles.sidebarBox}>
-                                <img src={el.img}/>
+                                <img src={el.img} alt={"#"}/>
                                 <span>{el.name}</span>
                             </div>
-
                         }
                     )
                 }
