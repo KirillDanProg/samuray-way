@@ -3,6 +3,7 @@ import img from "../assets/images.jpeg";
 import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
 import {v1} from "uuid";
+import {rerenderEntireTree} from "../render";
 
 
 export const state: StateType = {
@@ -18,7 +19,8 @@ export const state: StateType = {
             {id: v1(), message: "Lorem ipsum", img: img},
             {id: v1(), message: "bla bla bla bla bla bla", img: img3},
             {id: v1(), message: "Some message text", img: img2},
-        ]
+        ],
+        messageText: "",
     },
     profile: {
         postsData: [
@@ -31,6 +33,7 @@ export const state: StateType = {
             country: "Russia",
             dateOfBirth: "28.09.1998"
         },
+        postText: "",
     },
     sidebar: {
         friends: [
@@ -39,4 +42,39 @@ export const state: StateType = {
             {id: v1(), name: "Chris", img: img3},
         ]
     }
+}
+
+export const addPost = () => {
+    const newPost = {
+        id: v1(),
+        postText: state.profile.postText,
+        likes: 0,
+        img: img
+    }
+    state.profile.postsData = [...state.profile.postsData, newPost]
+    state.profile.postText = ""
+    rerenderEntireTree(state)
+}
+export const updatePostText = (newPostText: string) => {
+    state.profile.postText = newPostText
+    rerenderEntireTree(state)
+}
+
+export const deletePost = (id: string) => {
+    state.profile.postsData = [...state.profile.postsData].filter(post => post.id !== id)
+    rerenderEntireTree(state)
+}
+export const updateMessageText = (newMessageText: string) => {
+    state.dialogs.messageText = newMessageText
+    rerenderEntireTree(state)
+}
+export const addMessage = () => {
+    const newMessage = {
+        id: v1(),
+        message: state.dialogs.messageText,
+        img: img3
+    }
+    state.dialogs.messagesData = [...state.dialogs.messagesData, newMessage]
+    state.dialogs.messageText = ""
+    rerenderEntireTree(state)
 }
