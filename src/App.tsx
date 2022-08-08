@@ -12,7 +12,7 @@ import {Friends} from "./components/Friends/Friends";
 import {AppPropsType} from "./types /types";
 
 
-function App({state}: AppPropsType) {
+function App({state, ...props}: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="App">
@@ -20,8 +20,14 @@ function App({state}: AppPropsType) {
                 <Sidebar sidebar={state.sidebar}/>
                 <div className="AppContent">
                     <Routes>
-                        <Route path="/profile" element={<Profile profile={state.profile}/>}></Route>
-                        <Route path="/dialogs" element={<Dialogs dialogs={state.dialogs}/>}></Route>
+                        <Route path="/profile" element={<Profile profile={state.profile}
+                                                                 addPost={props.addPost}
+                                                                 deletePost={props.deletePost}
+                                                                 updatePostText={props.updatePostText}
+                        />}></Route>
+                        <Route path="/dialogs" element={<Dialogs updateMessageText={props.updateMessageText}
+                                                                 addMessage={props.addMessage}
+                                                                 dialogs={state.dialogs}/>}></Route>
                         <Route path="/users" element={<Users/>}></Route>
                         <Route path="/friends" element={<Friends/>}></Route>
                     </Routes>
