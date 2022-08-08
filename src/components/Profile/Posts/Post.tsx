@@ -11,9 +11,14 @@ type PostPropsType = {
     postText: string
     likes: number
     img: string
+    deletePost: (id: string) => void
 }
 
 export const Post: FC<PostPropsType> = (props) => {
+
+    const deletePostHandler = () => {
+        props.deletePost(props.id)
+    }
     return (
         <div className={styles.postContainer}>
             <img className={styles.postImg} src={props.img}/>
@@ -22,6 +27,7 @@ export const Post: FC<PostPropsType> = (props) => {
                 <FontAwesomeIcon icon="fa-solid fa-thumbs-up"/>
                 {props.likes}
             </span>
+            <button onClick={deletePostHandler}>delete</button>
         </div>
     )
 }
