@@ -34,6 +34,8 @@ export const state: StateType = {
             dateOfBirth: "28.09.1998"
         },
         postText: "",
+        error: false,
+        errorMessage: "",
     },
     sidebar: {
         friends: [
@@ -45,17 +47,25 @@ export const state: StateType = {
 }
 
 export const addPost = () => {
-    const newPost = {
-        id: v1(),
-        postText: state.profile.postText,
-        likes: 0,
-        img: img
+    if (state.profile.postText.trim()) {
+        const newPost = {
+            id: v1(),
+            postText: state.profile.postText,
+            likes: 0,
+            img: img
+        }
+        state.profile.postsData = [...state.profile.postsData, newPost]
+        state.profile.postText = ""
+        rerenderEntireTree(state)
+    } else {
+        state.profile.error = true
+        state.profile.errorMessage = "field is required"
+        rerenderEntireTree(state)
     }
-    state.profile.postsData = [...state.profile.postsData, newPost]
-    state.profile.postText = ""
-    rerenderEntireTree(state)
 }
 export const updatePostText = (newPostText: string) => {
+    // state.profile.error = false
+    // state.profile.errorMessage = ""
     state.profile.postText = newPostText
     rerenderEntireTree(state)
 }
