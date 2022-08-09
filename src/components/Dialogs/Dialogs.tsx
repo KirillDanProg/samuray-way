@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import styles from "./Dialogs.module.css"
 import { DialogItem } from "./DialogItem/DialogItem";
 import {DialogMessage} from "./Message/DialogMessage";
-import {DialogsPropsType} from "../../types /types";
+import {DialogsPropsType} from "../../types /DialogsType/DialogsTypes";
 
 
 

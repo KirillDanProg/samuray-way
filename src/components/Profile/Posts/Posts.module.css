@@ -6,6 +6,7 @@
     border: 1px solid purple;
     border-radius: 5px;
     padding: 10px;
+
 }
 
 .postContainer {
@@ -21,7 +22,10 @@
     border-radius: 50%;
 }
 
-.postText {
+ .error {
+    border: 2px solid red;
 }
-.postLikes {
+.errorMessage {
+    margin-left: 10px;
+    color: red;
 }

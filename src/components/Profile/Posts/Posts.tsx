@@ -1,14 +1,18 @@
 import React, {FC} from "react";
 import {NewPost} from "./NewPost";
 import {Post} from "./Post";
-import {PostsPropsType} from "../../../types /types";
+import {ProfilePropsType} from "../../../types /ProfileType/ProfileTypes";
 
 
-export const Posts: FC<PostsPropsType> = (props) => {
+export const Posts: FC<ProfilePropsType> = ({profile, ...props}) => {
     return (
         <div>
-            <NewPost postText={props.postText} addPost={props.addPost}  updatePostText={props.updatePostText}/>
-            {props.postsData.map((post, i) => (
+            <NewPost error={profile.error}
+                     errorMessage={profile.errorMessage}
+                     postText={profile.postText}
+                     addPost={props.addPost}
+                     updatePostText={props.updatePostText}/>
+            {profile.postsData.map((post, i) => (
                 <Post img={post.img}
                       key={i}
                       id={post.id}

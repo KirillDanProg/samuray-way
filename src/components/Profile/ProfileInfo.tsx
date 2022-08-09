@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import styles from "./Profile.module.css"
-import {ProfileDataType} from "../../types /types";
+import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
 
 type ProfileInfoPropsType = {
     profileData: ProfileDataType

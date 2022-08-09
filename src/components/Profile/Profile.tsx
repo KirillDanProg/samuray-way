@@ -3,7 +3,7 @@ import styles from "./Profile.module.css"
 import {ProfileInfo} from "./ProfileInfo";
 
 import {Posts} from "./Posts/Posts";
-import {ProfilePropsType} from "../../types /types";
+import {ProfilePropsType} from "../../types /ProfileType/ProfileTypes";
 
 
 
@@ -12,10 +12,9 @@ export const Profile: FC<ProfilePropsType> = ({profile, addPost, updatePostText,
     return (
         <div className={styles.profile}>
             <ProfileInfo profileData={profile.profileData}/>
-            <Posts postText={profile.postText}
+            <Posts profile={profile}
                    updatePostText={updatePostText}
                    addPost={addPost}
-                   postsData={profile.postsData}
                    deletePost={deletePost}
             />
         </div>
