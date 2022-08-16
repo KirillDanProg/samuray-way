@@ -3,8 +3,10 @@ import img from "../assets/images.jpeg";
 import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../render";
 
+let rerenderEntireTree = (x: StateType) => {
+    console.log(x)
+}
 
 export const state: StateType = {
     dialogs: {
@@ -87,4 +89,8 @@ export const addMessage = () => {
     state.dialogs.messagesData = [...state.dialogs.messagesData, newMessage]
     state.dialogs.messageText = ""
     rerenderEntireTree(state)
+}
+
+export const subscriber = (observer: (state: StateType) => void) => {
+    rerenderEntireTree = observer
 }
