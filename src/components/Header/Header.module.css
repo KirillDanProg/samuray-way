@@ -1,16 +1,16 @@
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     position: relative;
     grid-area: 1 / 3 / 2 / 13;
+    padding: 0 10px;
     background-color: #4d4d4d;
     color: palegreen;
     border-radius: 0 0 0 10px;
 }
 
 .logo {
-    position: absolute;
-    top: 50%;
-    left: 2%;
-    transform: translate(0, -50%);
     color: deeppink;
     font-size: 30px;
     font-weight: bold;
