@@ -12,22 +12,22 @@ import {Friends} from "./components/Friends/Friends";
 import {AppPropsType} from "./types /types";
 
 
-function App({state, ...props}: AppPropsType) {
+function App(props: AppPropsType) {
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar sidebar={state.sidebar}/>
+                <Sidebar sidebar={props.store.getState().sidebar}/>
                 <div className="AppContent">
                     <Routes>
-                        <Route path="/profile" element={<Profile profile={state.profile}
-                                                                 addPost={props.addPost}
-                                                                 deletePost={props.deletePost}
-                                                                 updatePostText={props.updatePostText}
+                        <Route path="/profile" element={<Profile profile={props.store.getState().profile}
+                                                                 addPost={props.store.addPost}
+                                                                 deletePost={props.store.deletePost}
+                                                                 updatePostText={props.store.updatePostText}
                         />}></Route>
-                        <Route path="/dialogs" element={<Dialogs updateMessageText={props.updateMessageText}
-                                                                 addMessage={props.addMessage}
-                                                                 dialogs={state.dialogs}/>}></Route>
+                        <Route path="/dialogs" element={<Dialogs updateMessageText={props.store.updateMessageText}
+                                                                 addMessage={props.store.addMessage}
+                                                                 dialogs={props.store.getState().dialogs}/>}></Route>
                         <Route path="/users" element={<Users/>}></Route>
                         <Route path="/friends" element={<Friends/>}></Route>
                     </Routes>

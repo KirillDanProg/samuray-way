@@ -21,12 +21,16 @@ export type FriendType = {
 }
 
 export type AppPropsType = {
-    state: StateType
-    addPost: () => void
-    updatePostText: (newPostText: string) => void
-    deletePost: (id: string) => void
-    updateMessageText: (newMessageText: string) => void
-    addMessage: () => void
+    store: {
+        _state: StateType
+        getState: () => any
+        addPost: () => void
+        updatePostText: (newPostText: string) => void
+        deletePost: (id: string) => void
+        updateMessageText: (newMessageText: string) => void
+        addMessage: () => void
+    }
+
 }
 
 export type NavLinkComponentType = {
