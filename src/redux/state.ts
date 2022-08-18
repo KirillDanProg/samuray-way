@@ -4,6 +4,7 @@ import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
 import {v1} from "uuid";
 
+
 export const store = {
     _state: {
         dialogs: {
@@ -50,7 +51,7 @@ export const store = {
     },
 
     rerenderEntireTree(x: StateType) {
-        console.log(x)
+
     },
 
     subscriber(observer: (state: StateType) => void) {
@@ -75,13 +76,11 @@ export const store = {
         }
     },
     updatePostText(newPostText: string) {
-        debugger
-        // state.profile.error = false
-        // state.profile.errorMessage = ""
         this._state.profile.postText = newPostText
         this.rerenderEntireTree(this._state)
     },
     deletePost(id: string) {
+        console.log(this)
         this._state.profile.postsData = [...this._state.profile.postsData].filter(post => post.id !== id)
         this.rerenderEntireTree(this._state)
     },

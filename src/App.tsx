@@ -21,12 +21,12 @@ function App(props: AppPropsType) {
                 <div className="AppContent">
                     <Routes>
                         <Route path="/profile" element={<Profile profile={props.store.getState().profile}
-                                                                 addPost={props.store.addPost}
-                                                                 deletePost={props.store.deletePost}
-                                                                 updatePostText={props.store.updatePostText}
+                                                                 addPost={props.store.addPost.bind(props.store)}
+                                                                 deletePost={props.store.deletePost.bind(props.store)}
+                                                                 updatePostText={props.store.updatePostText.bind(props.store)}
                         />}></Route>
-                        <Route path="/dialogs" element={<Dialogs updateMessageText={props.store.updateMessageText}
-                                                                 addMessage={props.store.addMessage}
+                        <Route path="/dialogs" element={<Dialogs updateMessageText={props.store.updateMessageText.bind(props.store)}
+                                                                 addMessage={props.store.addMessage.bind(props.store)}
                                                                  dialogs={props.store.getState().dialogs}/>}></Route>
                         <Route path="/users" element={<Users/>}></Route>
                         <Route path="/friends" element={<Friends/>}></Route>
