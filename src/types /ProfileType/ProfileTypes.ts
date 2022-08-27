@@ -1,3 +1,5 @@
+import {ActionsType} from "../../redux/state";
+
 export type ProfileType = {
     profileData: ProfileDataType
     postsData: Array<PostDataType>
@@ -7,9 +9,7 @@ export type ProfileType = {
 }
 export type ProfilePropsType = {
     profile: ProfileType
-    addPost: () => void
-    updatePostText: (newPostText: string) => void
-    deletePost: (id: string) => void
+    dispatch: (action: ActionsType) => void
 }
 export type ProfileDataType = {
     name: string
@@ -23,8 +23,7 @@ export type PostDataType = {
     img: string
 }
 export type NewPostType = {
-    addPost: () => void
-    updatePostText: (newPostText: string) => void
+    dispatch: (action: ActionsType) => void
     postText: string
     error: boolean
     errorMessage: string
