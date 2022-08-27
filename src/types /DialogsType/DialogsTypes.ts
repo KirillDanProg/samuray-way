@@ -1,3 +1,5 @@
+import {ActionsType} from "../../redux/state";
+
 export type DialogType = {
     id: string
     name: string
@@ -9,8 +11,7 @@ export type DialogsPropsType = {
         messagesData: Array<MessageDataType>
         messageText: string
     }
-    updateMessageText: (newMessageText: string) => void
-    addMessage: () => void
+    dispatch: (action: ActionsType) => void
 }
 export type MessageDataType = {
     id: string
