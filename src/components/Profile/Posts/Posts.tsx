@@ -9,15 +9,15 @@ export const Posts: FC<ProfilePropsType> = ({profile, ...props}) => {
         <div>
             <NewPost error={profile.error}
                      errorMessage={profile.errorMessage}
+                     dispatch={props.dispatch}
                      postText={profile.postText}
-                     addPost={props.addPost}
-                     updatePostText={props.updatePostText}/>
+                     />
             {profile.postsData.map((post, i) => (
                 <Post img={post.img}
                       key={i}
                       id={post.id}
                       likes={post.likes}
-                      deletePost={props.deletePost}
+                      dispatch={props.dispatch}
                       postText={post.postText}/>
             ))}
         </div>

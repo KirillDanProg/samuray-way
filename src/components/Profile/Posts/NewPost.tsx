@@ -1,6 +1,7 @@
 import React, {FC} from "react";
 import styles from "./Posts.module.css"
 import {NewPostType} from "../../../types /ProfileType/ProfileTypes";
+import {addPostAC, updatePostTextAC} from "../../../redux/profile-reducer";
 
 
 export const NewPost: FC<NewPostType> = (props) => {
@@ -14,13 +15,13 @@ export const NewPost: FC<NewPostType> = (props) => {
             setErrorMessage("field is required")
         }
         e.preventDefault()
-        props.addPost()
+        props.dispatch(addPostAC())
     }
 
     const updatePostTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError(false)
         setErrorMessage("")
-        props.updatePostText(e.currentTarget.value)
+        props.dispatch(updatePostTextAC(e.currentTarget.value))
     }
 
     return (
