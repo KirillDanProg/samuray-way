@@ -3,6 +3,9 @@ import img from "../assets/images.jpeg";
 import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
 import {v1} from "uuid";
+import dialogsReducer, {addMessageAC, updateMessageTextAC} from "./dialogs-reducer";
+import profileReducer, {addPostAC, deletePostAC, updatePostTextAC} from "./profile-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 
 export const store = {
@@ -50,55 +53,29 @@ export const store = {
         return this._state
     },
 
-    rerenderEntireTree(x: StateType) {
+    _callSubscriber(x: StateType) {
 
     },
 
     subscriber(observer: (state: StateType) => void) {
-        this.rerenderEntireTree = observer
+        this._callSubscriber = observer
     },
 
-    addPost() {
-        if (this._state.profile.postText.trim()) {
-            const newPost = {
-                id: v1(),
-                postText: this._state.profile.postText,
-                likes: 0,
-                img: img
-            }
-            this._state.profile.postsData = [...this._state.profile.postsData, newPost]
-            this._state.profile.postText = ""
-            this.rerenderEntireTree(this._state)
-        } else {
-            this._state.profile.error = true
-            this._state.profile.errorMessage = "field is required"
-            this.rerenderEntireTree(this._state)
-        }
-    },
-    updatePostText(newPostText: string) {
-        this._state.profile.postText = newPostText
-        this.rerenderEntireTree(this._state)
-    },
-    deletePost(id: string) {
-        console.log(this)
-        this._state.profile.postsData = [...this._state.profile.postsData].filter(post => post.id !== id)
-        this.rerenderEntireTree(this._state)
-    },
-    updateMessageText(newMessageText: string) {
-        this._state.dialogs.messageText = newMessageText
-        this.rerenderEntireTree(this._state)
-    },
-    addMessage() {
-        const newMessage = {
-            id: v1(),
-            message: this._state.dialogs.messageText,
-            img: img3
-        }
-        this._state.dialogs.messagesData = [...this._state.dialogs.messagesData, newMessage]
-        this._state.dialogs.messageText = ""
-        this.rerenderEntireTree(this._state)
+
+    dispatch(action: ActionsType) {
+        dialogsReducer(this._state.dialogs, action)
+        profileReducer(this._state.profile, action)
+        sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
+
     }
 }
 
+export type ActionsType = ReturnType<typeof addMessageAC> |
+    ReturnType<typeof deletePostAC> |
+    ReturnType<typeof updatePostTextAC> |
+    ReturnType<typeof addPostAC> |
+    ReturnType<typeof updateMessageTextAC>
 
 
