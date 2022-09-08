@@ -8,7 +8,7 @@ import profileReducer, {addPostAC, deletePostAC, updatePostTextAC} from "./profi
 import sidebarReducer from "./sidebar-reducer";
 
 
-export const store = {
+ const store = {
     _state: {
         dialogs: {
             dialogsData: [
