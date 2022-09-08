@@ -1,8 +1,10 @@
 import {ActionsType} from "./state";
 
-
-const sidebarReducer = (state: any, action: ActionsType) => {
-
+const initialState = {
+    a: 1
+}
+const sidebarReducer = (state: any = initialState, action: ActionsType) => {
+    return state
 }
 
 export default sidebarReducer
