@@ -1,21 +1,18 @@
-import React, {FC} from "react";
+import React from "react";
 import styles from "./Profile.module.css"
 import {ProfileInfo} from "./ProfileInfo";
 
-import {Posts} from "./Posts/Posts";
-import {ProfilePropsType} from "../../types /ProfileType/ProfileTypes";
+import {PostsContainer} from "./Posts/PostsContainer";
+import {AppType} from "../../redux/store";
 
 
 
+export const Profile = (props: AppType) => {
 
-export const Profile: FC<ProfilePropsType> = (props) => {
-    const {profile, dispatch} = props
     return (
         <div className={styles.profile}>
-            <ProfileInfo profileData={profile.profileData}/>
-            <Posts profile={profile}
-                   dispatch={dispatch}
-            />
+            <ProfileInfo profileData={props.store.getState().profile.profileData}/>
+            <PostsContainer store={props.store}/>
         </div>
     )
 }
