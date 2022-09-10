@@ -1,23 +1,39 @@
-import React, {FC} from "react";
+import React from "react";
+import {AppType} from "../../../redux/store";
 import {NewPost} from "./NewPost";
+import {addPostAC, deletePostAC, updatePostTextAC} from "../../../redux/profile-reducer";
 import {Post} from "./Post";
-import {ProfilePropsType} from "../../../types /ProfileType/ProfileTypes";
+import {PostDataType} from "../../../types /ProfileType/ProfileTypes";
 
 
-export const Posts: FC<ProfilePropsType> = ({profile, ...props}) => {
+export const PostsContainer = (props: AppType) => {
+    const addPostHandler = () => {
+        props.store.dispatch(addPostAC())
+    }
+
+    const updatePostTextHandler = (postText: string) => {
+        props.store.dispatch(updatePostTextAC(postText))
+    }
+
+    const deletePostHandler = (id: string) => {
+        props.store.dispatch(deletePostAC(id))
+    }
+
+
     return (
         <div>
-            <NewPost error={profile.error}
-                     errorMessage={profile.errorMessage}
-                     dispatch={props.dispatch}
-                     postText={profile.postText}
-                     />
-            {profile.postsData.map((post, i) => (
+            <NewPost error={props.store.getState().profile.error}
+                     errorMessage={props.store.getState().profile.errorMessage}
+                     postText={props.store.getState().profile.postText}
+                     addPost={addPostHandler}
+                     updatePostText={updatePostTextHandler}
+            />
+            {props.store.getState().profile.postsData.map((post: PostDataType) => (
                 <Post img={post.img}
-                      key={i}
+                      key={post.id}
                       id={post.id}
                       likes={post.likes}
-                      dispatch={props.dispatch}
+                      deletePost={deletePostHandler}
                       postText={post.postText}/>
             ))}
         </div>
