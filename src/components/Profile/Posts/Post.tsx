@@ -4,8 +4,6 @@ import styles from "./Posts.module.css"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import {ActionsType} from "../../../redux/state";
-import {deletePostAC} from "../../../redux/profile-reducer";
 library.add(fas)
 
 type PostPropsType = {
@@ -13,13 +11,13 @@ type PostPropsType = {
     postText: string
     likes: number
     img: string
-    dispatch: (action: ActionsType) => void
+    deletePost: (id: string) => void
 }
 
 export const Post: FC<PostPropsType> = (props) => {
 
     const deletePostHandler = () => {
-        props.dispatch(deletePostAC(props.id))
+        props.deletePost(props.id)
     }
     return (
         <div className={styles.postContainer}>
