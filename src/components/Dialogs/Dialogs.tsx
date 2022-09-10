@@ -2,27 +2,33 @@ import React, {FC} from "react";
 import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./Message/DialogMessage";
-import {DialogsPropsType} from "../../types /DialogsType/DialogsTypes";
-import {addMessageAC, updateMessageTextAC} from "../../redux/dialogs-reducer";
+import {DialogType, MessageDataType} from "../../types /DialogsType/DialogsTypes";
 
 
+export type DialogsPropsType = {
+    dialogs: {
+        dialogsData: Array<DialogType>
+        messagesData: Array<MessageDataType>
+        messageText: string
+    }
+    addMessage: () => void
+    updateMessageText: (message: string) => void
+}
 export const Dialogs: FC<DialogsPropsType> = (props) => {
-    const {dialogs, dispatch} = props
-
-    const dialogElements = dialogs.dialogsData.map((dialog, i) => (
-        <DialogItem key={i} name={dialog.name} img={dialog.img} id={dialog.id}/>
+    const dialogElements = props.dialogs.dialogsData.map((dialog) => (
+        <DialogItem key={dialog.id} name={dialog.name} img={dialog.img} id={dialog.id}/>
     ))
 
-    const messageElements = dialogs.messagesData.map((message, i) => (
-        <DialogMessage key={i} message={message.message} id={message.id} img={message.img}/>
+    const messageElements = props.dialogs.messagesData.map((message) => (
+        <DialogMessage key={message.id} message={message.message} id={message.id} img={message.img}/>
     ))
 
-    const updateMessageText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(updateMessageTextAC(e.currentTarget.value))
+    const updateMessageTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        props.updateMessageText(e.currentTarget.value)
     }
 
     const addMessageHandler = () => {
-        dispatch(addMessageAC())
+        props.addMessage()
     }
 
     return (
@@ -33,10 +39,10 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
             <div className={styles.colMessages}>
                 {messageElements}
 
-                <form className={styles.form}>
-                    <input onChange={updateMessageText} value={dialogs.messageText} className={styles.input}/>
+                {/*<form className={styles.form}>*/}
+                    <input onChange={updateMessageTextHandler} value={props.dialogs.messageText} className={styles.input}/>
                     <button onClick={addMessageHandler}>send</button>
-                </form>
+                {/*</form>*/}
 
             </div>
         </div>
