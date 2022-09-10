@@ -1,34 +1,36 @@
 import React, {FC} from "react";
 import styles from "./Posts.module.css"
-import {NewPostType} from "../../../types /ProfileType/ProfileTypes";
-import {addPostAC, updatePostTextAC} from "../../../redux/profile-reducer";
 
-
+export type NewPostType = {
+    addPost: () => void
+    updatePostText: (text: string) => void
+    postText: string
+    error: boolean
+    errorMessage: string
+}
 export const NewPost: FC<NewPostType> = (props) => {
 
-    const [error, setError] = React.useState(false)
-    const [errorMessage, setErrorMessage] = React.useState("")
 
     const addPost = (e: React.MouseEvent<HTMLButtonElement>) => {
         if(!props.postText.trim()) {
-            setError(true)
-            setErrorMessage("field is required")
+            // props.setError(true)
+            // setErrorMessage("field is required")
         }
         e.preventDefault()
-        props.dispatch(addPostAC())
+        props.addPost()
     }
 
     const updatePostTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setError(false)
-        setErrorMessage("")
-        props.dispatch(updatePostTextAC(e.currentTarget.value))
+        // setError(false)
+        // setErrorMessage("")
+       props.updatePostText(e.currentTarget.value)
     }
 
     return (
         <form className={styles.form}>
             <input value={props.postText} onChange={updatePostTextHandler}
-                   className={`${styles.input} ${error ? styles.error : ""}`}/>
-            <div className={styles.errorMessage}>{error && errorMessage}</div>
+                   className={`${styles.input} ${props.error ? styles.error : ""}`}/>
+            <div className={styles.errorMessage}>{props.error && props.errorMessage}</div>
             <button onClick={addPost}>Add Post</button>
         </form>
     )
