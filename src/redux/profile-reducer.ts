@@ -3,29 +3,30 @@ import {v1} from "uuid";
 import img from "./../assets/images.jpeg"
 import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
-import {ProfileType} from "../types /ProfileType/ProfileTypes";
+import { ProfileType} from "../types /ProfileType/ProfileTypes";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 const DELETE_POST = "DELETE-POST"
 
-const initialState: ProfileType  = {
+const initialState: ProfileType = {
     postsData: [
         {id: v1(), postText: "Hello world!", likes: 237, img: img},
         {id: v1(), postText: "Bla Bla Bla", likes: 158, img: img2},
         {id: v1(), postText: "Looking for a job", likes: 496, img: img3},
-    ],
+    ] ,
     profileData: {
         name: "Kirill",
         country: "Russia",
         dateOfBirth: "28.09.1998"
-    },
+    } ,
     postText: "",
     error: false,
     errorMessage: "",
 }
 
-const profileReducer = (state= initialState, action: ActionsType) => {
+
+const profileReducer = (state: ProfileType = initialState, action: ActionsType): ProfileType => {
     switch (action.type) {
         case ADD_POST:
             if (state.postText.trim()) {
