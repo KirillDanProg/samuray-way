@@ -2,41 +2,54 @@ import React from "react";
 import {NewPost} from "./NewPost";
 import {addPostAC, deletePostAC, updatePostTextAC} from "../../../redux/profile-reducer";
 import {Post} from "./Post";
-import {PostDataType, ProfileType} from "../../../types /ProfileType/ProfileTypes";
+import {ProfileType} from "../../../types /ProfileType/ProfileTypes";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppType} from "../../../redux/store";
 
 
 
-const Posts = (props: AppType) => {
+const Posts = (props: PostsPropsType) => {
+    const {profile} = props
     return (
         <div>
-            <NewPost error={props.error}
-                     errorMessage={props.errorMessage}
-                     postText={props.postText}
-                     addPost={props.addPostHandler}
-                     updatePostText={props.updatePostTextHandler}
+            <NewPost error={profile.error}
+                     errorMessage={profile.errorMessage}
+                     postText={profile.postText}
+                     addPost={props.addPost}
+                     updatePostText={props.updatePostText}
             />
-            {props.profile.postsData.map((post: PostDataType) => (
+            {props.profile.postsData.map((post) => (
                 <Post img={post.img}
                       key={post.id}
                       id={post.id}
                       likes={post.likes}
-                      deletePost={props.deletePostHandler}
+                      deletePost={props.deletePost}
                       postText={post.postText}/>
             ))}
         </div>
     )
 }
 
-const mapStateToProps = (state: AppType) => {
+export type PostsPropsType = MapStatePropsType & MapDispatchPropsType
+
+type MapStatePropsType = {
+    profile: ProfileType
+}
+
+type MapDispatchPropsType = {
+    addPost: () => void
+    updatePostText: (id: string) => void
+    deletePost: (id: string) => void
+}
+
+const mapStateToProps = (state: AppType): MapStatePropsType => {
     return {
-        profile: state.profile
+        profile: state.profile,
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
         addPost: () => {
             dispatch(addPostAC())
@@ -44,9 +57,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         updatePostText: (id: string) => {
             dispatch(updatePostTextAC(id))
         },
-        deletePostHandler: (id: string) => {
+        deletePost: (id: string) => {
            dispatch(deletePostAC(id))
-        }
+        },
     }
 }
 

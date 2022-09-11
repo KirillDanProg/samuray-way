@@ -10,7 +10,6 @@ export type NewPostType = {
 }
 export const NewPost: FC<NewPostType> = (props) => {
 
-
     const addPost = (e: React.MouseEvent<HTMLButtonElement>) => {
         if(!props.postText.trim()) {
             // props.setError(true)
