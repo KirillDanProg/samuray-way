@@ -27,11 +27,11 @@ export const NewPost: FC<NewPostType> = (props) => {
     }
 
     return (
-        <form className={styles.form}>
+        <>
             <input value={props.postText} onChange={updatePostTextHandler}
                    className={`${styles.input} ${props.error ? styles.error : ""}`}/>
             <div className={styles.errorMessage}>{props.error && props.errorMessage}</div>
             <button onClick={addPost}>Add Post</button>
-        </form>
+        </>
     )
 }

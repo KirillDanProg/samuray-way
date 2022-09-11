@@ -1,42 +1,53 @@
 import React from "react";
-import {AppType} from "../../../redux/store";
 import {NewPost} from "./NewPost";
 import {addPostAC, deletePostAC, updatePostTextAC} from "../../../redux/profile-reducer";
 import {Post} from "./Post";
-import {PostDataType} from "../../../types /ProfileType/ProfileTypes";
+import {PostDataType, ProfileType} from "../../../types /ProfileType/ProfileTypes";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {AppType} from "../../../redux/store";
 
 
-export const PostsContainer = (props: AppType) => {
-    const addPostHandler = () => {
-        props.store.dispatch(addPostAC())
-    }
 
-    const updatePostTextHandler = (postText: string) => {
-        props.store.dispatch(updatePostTextAC(postText))
-    }
-
-    const deletePostHandler = (id: string) => {
-        props.store.dispatch(deletePostAC(id))
-    }
-
-
+const Posts = (props: AppType) => {
     return (
         <div>
-            <NewPost error={props.store.getState().profile.error}
-                     errorMessage={props.store.getState().profile.errorMessage}
-                     postText={props.store.getState().profile.postText}
-                     addPost={addPostHandler}
-                     updatePostText={updatePostTextHandler}
+            <NewPost error={props.error}
+                     errorMessage={props.errorMessage}
+                     postText={props.postText}
+                     addPost={props.addPostHandler}
+                     updatePostText={props.updatePostTextHandler}
             />
-            {props.store.getState().profile.postsData.map((post: PostDataType) => (
+            {props.profile.postsData.map((post: PostDataType) => (
                 <Post img={post.img}
                       key={post.id}
                       id={post.id}
                       likes={post.likes}
-                      deletePost={deletePostHandler}
+                      deletePost={props.deletePostHandler}
                       postText={post.postText}/>
             ))}
         </div>
     )
 }
 
+const mapStateToProps = (state: AppType) => {
+    return {
+        profile: state.profile
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        addPost: () => {
+            dispatch(addPostAC())
+        },
+        updatePostText: (id: string) => {
+            dispatch(updatePostTextAC(id))
+        },
+        deletePostHandler: (id: string) => {
+           dispatch(deletePostAC(id))
+        }
+    }
+}
+
+export const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts)

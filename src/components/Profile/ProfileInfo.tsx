@@ -1,12 +1,9 @@
-import React, {FC} from "react";
+import React from "react";
 import styles from "./Profile.module.css"
-import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
+import {connect} from "react-redux";
 
-type ProfileInfoPropsType = {
-    profileData: ProfileDataType
-}
 
-export const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
+export const ProfileInfo = (props: any) => {
     return (
         <div className={styles.profileInfo}>
             <img className={styles.avatar} src={"https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"}/>
@@ -18,3 +15,15 @@ export const ProfileInfo: FC<ProfileInfoPropsType> = (props) => {
         </div>
     )
 }
+const mapStateToProps = (state: any) => {
+    return {
+        profileData: state
+    }
+}
+const mapDispatchToProps = () => {
+    return {
+
+    }
+}
+
+export const ProfileInfoContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileInfo)

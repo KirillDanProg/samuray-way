@@ -8,14 +8,14 @@ type SideBarType = {
         friends: Array<FriendType>
     }
 }
-export const Sidebar = (props: SideBarType) => {
+export const Sidebar = () => {
     return (
         <div className={styles.sidebar}>
             <ul className={styles.list}>
                 <NavLinkComponent title={"Profile"}/>
                 <NavLinkComponent title={"Dialogs"}/>
                 <NavLinkComponent title={"Users"}/>
-                <NavLinkComponent friends={props.sidebar.friends} title={"Friends"}/>
+                {/*<NavLinkComponent friends={props.sidebar.friends} title={"Friends"}/>*/}
             </ul>
         </div>
     )
