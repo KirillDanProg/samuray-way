@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.css';
 
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
@@ -8,20 +8,19 @@ import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Profile} from "./components/Profile/Profile";
 import {Users} from "./components/Users/Users";
 import {Friends} from "./components/Friends/Friends";
-import {AppPropsType} from "./types /types";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
-const App: FC<AppPropsType> = ({store}) => {
+const App = () => {
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
-                <Sidebar sidebar={store.getState().sidebar}/>
+                <Sidebar/>
                 <div className="AppContent">
                     <Routes>
-                        <Route path="/profile" element={<Profile store={store}/>}></Route>
-                        <Route path="/dialogs" element={<DialogsContainer store={store} />}/>
+                        <Route path="/profile" element={<Profile />}></Route>
+                        <Route path="/dialogs" element={<DialogsContainer />}/>
                         <Route path="/users" element={<Users/>}/>
                         <Route path="/friends" element={<Friends/>}/>
                     </Routes>
