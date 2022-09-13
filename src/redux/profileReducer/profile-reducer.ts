@@ -1,9 +1,9 @@
-import {ActionsType} from "./state";
+import {ActionsType} from "../state";
 import {v1} from "uuid";
-import img from "./../assets/images.jpeg"
-import img2 from "../assets/rick.jpeg";
-import img3 from "../assets/monkey.jpeg";
-import { ProfileType} from "../types /ProfileType/ProfileTypes";
+import img from "../../assets/images.jpeg"
+import img2 from "../../assets/rick.jpeg";
+import img3 from "../../assets/monkey.jpeg";
+import { ProfileType} from "../../types /ProfileType/ProfileTypes";
 
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"

@@ -9,8 +9,8 @@ test("users should be uploaded", () => {
         totalCount: 5 as number
     }
     const users = [
-        {id: v1(), userName: "Alex", followed: false},
-        {id: v1(), userName: "Kirill", followed: false}
+        {id: v1(), name: "Alex", followed: false},
+        {id: v1(), name: "Kirill", followed: false}
     ]
     const action: setUserACType = {
         type: "SET-USERS",
@@ -24,14 +24,14 @@ test("users should be uploaded", () => {
     const newState = usersReducer(initialState, action)
 
     expect(newState.users.length).toBe(2)
-    expect(newState.users[0].userName).toBe(name)
+    expect(newState.users[0].name).toBe(name)
 })
 
 test("user followed should be true", () => {
     const initialState = {
         users: [
-            {id: v1(), userName: "Alex", followed: false},
-            {id: v1(), userName: "Kirill", followed: false}
+            {id: v1(), name: "Alex", followed: false},
+            {id: v1(), name: "Kirill", followed: false}
         ] as User[],
         error: "" as string,
         totalCount: 5 as number
@@ -52,8 +52,8 @@ test("user followed should be true", () => {
 test("user followed should be false", () => {
     const initialState = {
         users: [
-            {id: v1(), userName: "Alex", followed: false},
-            {id: v1(), userName: "Kirill", followed: true}
+            {id: v1(), name: "Alex", followed: false},
+            {id: v1(), name: "Kirill", followed: true}
         ] as User[],
         error: "" as string,
         totalCount: 5 as number

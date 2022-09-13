@@ -1,9 +1,9 @@
-import {ActionsType} from "./state";
-import img3 from "../assets/monkey.jpeg";
+import {ActionsType} from "../state";
+import img3 from "../../assets/monkey.jpeg";
 import {v1} from "uuid";
-import img from "../assets/images.jpeg";
-import img2 from "../assets/rick.jpeg";
-import {DialogType, MessageDataType} from "../types /DialogsType/DialogsTypes";
+import img from "../../assets/images.jpeg";
+import img2 from "../../assets/rick.jpeg";
+import {DialogType, MessageDataType} from "../../types /DialogsType/DialogsTypes";
 
 const UPDATE_MESSAGE_TEXT = "UPDATE-MESSAGE-TEXT"
 const ADD_MESSAGE = "ADD-MESSAGE"
@@ -42,7 +42,13 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 }
 
-export const updateMessageTextAC = (newMessageText: string) => {
+type UpdateMessageTextACType = {
+    type: typeof UPDATE_MESSAGE_TEXT,
+    payload: {
+        newMessageText: string
+    }
+}
+export const updateMessageTextAC = (newMessageText: string): UpdateMessageTextACType => {
     return {
         type: UPDATE_MESSAGE_TEXT,
         payload: {
@@ -51,9 +57,12 @@ export const updateMessageTextAC = (newMessageText: string) => {
     } as const
 }
 
-export const addMessageAC = () => {
+type AddMessageACType = {
+    type: typeof ADD_MESSAGE
+}
+export const addMessageAC = (): AddMessageACType => {
     return {
-        type: ADD_MESSAGE
+        type: ADD_MESSAGE,
     } as const
 }
 
