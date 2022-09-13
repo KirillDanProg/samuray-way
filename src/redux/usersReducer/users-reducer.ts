@@ -1,6 +1,6 @@
 export type User = {
     id: string
-    userName: string
+    name: string
     status?: string
     photo?: string
     followed: boolean
@@ -10,16 +10,21 @@ const initialState = {
     error: "" as string,
     totalCount: 5 as number
 }
-type InitialStateType = typeof initialState
+export type InitialUsersStateType = typeof initialState
 
+enum Actions {
+    SET_USERS = "SET-USERS",
+    FOLLOW = "FOLLOW",
+    UNFOLLOW = "UNFOLLOW"
+}
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType) => {
+export const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "SET-USERS":
+        case Actions.SET_USERS:
             return {...state, users: [...action.payload.users]}
-        case "FOLLOW":
+        case Actions.FOLLOW:
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: true} : u)}
-        case "UNFOLLOW":
+        case Actions.UNFOLLOW:
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: false} : u)}
         default:
             return state
@@ -33,7 +38,7 @@ export type setUserACType = ReturnType<typeof setUsersAC>
 export type followACType = ReturnType<typeof followAC>
 export type unfollowACType = ReturnType<typeof unfollowAC>
 
-const setUsersAC = (users: User[])  => {
+export const setUsersAC = (users: User[])  => {
     return {
         type: "SET-USERS",
         payload: {
@@ -41,7 +46,7 @@ const setUsersAC = (users: User[])  => {
         }
     } as const
 }
-const followAC = (id: string) => {
+export const followAC = (id: string) => {
     return {
         type: "FOLLOW",
         payload: {
@@ -49,9 +54,9 @@ const followAC = (id: string) => {
         }
     } as const
 }
-const unfollowAC = (id: string) => {
+export const unfollowAC = (id: string) => {
     return {
-        type: "UNFOLLOW",
+        type:  "UNFOLLOW",
         payload: {
             id
         }
