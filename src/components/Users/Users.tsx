@@ -4,6 +4,7 @@ import {UsersPropsType} from "./UsersContainer";
 import userPh from "../../assets/userPh.jpeg"
 
 export const Users = (props: UsersPropsType) => {
+
     useEffect(() => {
         axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
             props.setUsers(response.data.items)
@@ -46,7 +47,7 @@ type UserPropsType = {
     follow: (id: string) => void
     unfollow: (id: string) => void
 }
-const User: FC<UserPropsType> = (props) => {
+export const User: FC<UserPropsType> = (props) => {
     return (
         <div key={props.id}>
             <img style={{width: "80px", borderRadius: "50%"}} src={props.photo ? props.photo : userPh}/>
