@@ -8,17 +8,20 @@ export type User = {
 const initialState = {
     users: [] as User[],
     error: "" as string,
-    totalCount: 5 as number
+    total: 100 as number,
+    count: 10 as number,
+    page: 1 as number
 }
 export type InitialUsersStateType = typeof initialState
 
 enum Actions {
     SET_USERS = "SET-USERS",
     FOLLOW = "FOLLOW",
-    UNFOLLOW = "UNFOLLOW"
+    UNFOLLOW = "UNFOLLOW",
+    SET_PAGE = "SET-PAGE",
 }
 
-export const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsType) => {
+export const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsType): InitialUsersStateType => {
     switch (action.type) {
         case Actions.SET_USERS:
             return {...state, users: [...action.payload.users]}
@@ -26,17 +29,20 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: true} : u)}
         case Actions.UNFOLLOW:
             return {...state, users: state.users.map(u => u.id === action.payload.id ? {...u, followed: false} : u)}
+        case Actions.SET_PAGE:
+            return {...state, page: action.page}
         default:
             return state
     }
 }
 
-type ActionsType = setUserACType | followACType | unfollowACType
+type ActionsType = setUserACType | followACType | unfollowACType | setPageACType
 
 
 export type setUserACType = ReturnType<typeof setUsersAC>
 export type followACType = ReturnType<typeof followAC>
 export type unfollowACType = ReturnType<typeof unfollowAC>
+export type setPageACType = ReturnType<typeof setPageAC>
 
 export const setUsersAC = (users: User[])  => {
     return {
@@ -60,5 +66,11 @@ export const unfollowAC = (id: string) => {
         payload: {
             id
         }
+    } as const
+}
+export const setPageAC = (page: number) => {
+    return {
+        type: Actions.SET_PAGE,
+        page
     } as const
 }
