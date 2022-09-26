@@ -7,14 +7,6 @@ export type ProfileType = {
     errorMessage: string
 }
 
-export type ProfileDataType = {
-    name: string
-    country: string
-    dateOfBirth: string
-}
-export type PostDataType = {
-    id: string
-    postText: string
-    likes: number
-    img: string
-}
+export type ProfileDataType = {} | null
+
+export type PostDataType = any

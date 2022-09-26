@@ -5,7 +5,6 @@ import styles from './Users.module.css'
 import {User} from "./User";
 
 export const Users = (props: UsersPropsType) => {
-
     useEffect(() => {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.users.page}&count=${props.users.count}`)
             .then(response => {
@@ -49,7 +48,7 @@ export const Users = (props: UsersPropsType) => {
                           follow={followHandler}
                           unfollow={unfollowHandler}
                           followed={u.followed}
-                          photo={u.photo}
+                          photos={u.photos.small}
                           status={u.status}
                     />
                 )

@@ -4,7 +4,12 @@ import img2 from "../assets/rick.jpeg";
 import img3 from "../assets/monkey.jpeg";
 import {v1} from "uuid";
 import dialogsReducer, {addMessageAC, updateMessageTextAC} from "./dialogsReducer/dialogs-reducer";
-import profileReducer, {addPostAC, deletePostAC, updatePostTextAC} from "./profileReducer/profile-reducer";
+import profileReducer, {
+    addPostAC,
+    deletePostAC,
+    setProfileDataAC,
+    updatePostTextAC
+} from "./profileReducer/profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
 
@@ -76,6 +81,7 @@ export type ActionsType = ReturnType<typeof addMessageAC> |
     ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
     ReturnType<typeof addPostAC> |
-    ReturnType<typeof updateMessageTextAC>
+    ReturnType<typeof updateMessageTextAC> |
+    ReturnType<typeof setProfileDataAC>
 
 

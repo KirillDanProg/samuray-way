@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppType} from "../../redux/store";
+import {RootState} from "../../redux/store";
 import {Dispatch} from "redux";
 import {
     followAC,
     InitialUsersStateType,
-    setPageAC,
+    setPageAC, setTotalAC,
     setUsersAC,
     unfollowAC,
     User
@@ -23,14 +23,17 @@ type MapDispatchType = {
     follow: (id: string) => void
     unfollow: (id: string) => void
     changePage: (page: number) => void
+    setTotal: (total: number) => void
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.users.page}&count=${this.props.users.count}`).then(response => {
             this.props.setUsers(response.data.items)
+            this.props.setTotal(response.data.totalCount)
         })
     }
+
     followHandler = (id: string) => {
         this.props.follow(id)
     }
@@ -40,18 +43,21 @@ class UsersContainer extends React.Component<UsersPropsType> {
     changePageHandler = (p: number) => {
         this.props.changePage(p)
     }
+
     render() {
         return (
-           <Users users={this.props.users}
-                  setUsers={this.props.setUsers}
-                  follow={this.followHandler}
-                  unfollow={this.unfollowHandler}
-                  changePage={this.changePageHandler}/>
+            <Users users={this.props.users}
+                   setUsers={this.props.setUsers}
+                   follow={this.followHandler}
+                   unfollow={this.unfollowHandler}
+                   changePage={this.changePageHandler}
+                   setTotal={this.props.setTotal}
+            />
         )
     }
 }
 
-const mapStateToProps = (state: AppType): MapStateType => {
+const mapStateToProps = (state: RootState): MapStateType => {
     return {
         users: state.users
     }
@@ -69,9 +75,11 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
         },
         changePage: (page: number) => {
             dispatch(setPageAC(page))
+        },
+        setTotal: (total: number) => {
+            dispatch(setTotalAC(total))
         }
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+    export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 

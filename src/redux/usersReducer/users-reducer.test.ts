@@ -1,13 +1,10 @@
-import {v1} from "uuid";
 import {followACType, InitialUsersStateType, setUserACType, unfollowACType, usersReducer} from "./users-reducer";
 
 let initialState: InitialUsersStateType
 
 beforeEach(() => {
     initialState = {
-        users: [
-            {id: v1(), name: "Alex", followed: false},
-            {id: v1(), name: "Kirill", followed: true}]
+        users: []
         ,
         error: "",
         total: 100,
