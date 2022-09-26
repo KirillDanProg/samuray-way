@@ -1,18 +1,27 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from "./Profile.module.css"
-import {ProfileInfoContainerPropsType} from "./ProfileInfoContainer";
 
 
-export const ProfileInfo = (props: ProfileInfoContainerPropsType) => {
-    const {profileData} = props
-    return (
-        <div className={styles.profileInfo}>
-            <img className={styles.avatar} src={"https://klike.net/uploads/posts/2019-03/1551511801_1.jpg"}/>
-            <div>
-                <div>Name: {profileData.name}</div>
-                <div>Country: {profileData.country}</div>
-                <div>Date of birth: {profileData.dateOfBirth}</div>
+type ProfileInfoType = {
+    profileData: any
+}
+export const ProfileInfo: FC<ProfileInfoType> = (props) => {
+    if (props.profileData) {
+        const {profileData} = props
+        const photo = profileData.photos.small
+        return (
+            <div className={styles.profileInfo}>
+                <img className={styles.avatar}
+                     src={photo ? photo : "https://w7.pngwing.com/pngs/754/2/png-transparent-samsung-galaxy-a8-a8-user-login-telephone-avatar-pawn-blue-angle-sphere-thumbnail.png"}/>
+                <div>
+                    <div>Name: {profileData.fullName}</div>
+                    {/*<div>Country: {profileData.country}</div>*/}
+                    {/*<div>Date of birth: {profileData.dateOfBirth}</div>*/}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return <div>Something went wrong</div>
+    }
+
 }
