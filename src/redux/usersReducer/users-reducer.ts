@@ -2,7 +2,7 @@ export type User = {
     id: string
     name: string
     status?: string
-    photos: {small:  string | null, large: string | null}
+    photo: string
     followed: boolean
 }
 const initialState = {

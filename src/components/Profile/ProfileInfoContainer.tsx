@@ -4,11 +4,9 @@ import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
 import {AppType} from "../../redux/store";
 import {ProfileInfo} from "./ProfileInfo";
 import axios from "axios";
-import {setProfileDataAC} from "../../redux/profileReducer/profile-reducer";
+import {DataType, setProfileDataAC} from "../../redux/profileReducer/profile-reducer";
 import {Dispatch} from "redux";
-import {
-    useParams
-} from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 type ParamsType = {
     userId: number
@@ -51,7 +49,7 @@ class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType
 
 
 type MapStatePropsType = {
-    profileData: any
+    profileData: ProfileDataType
 }
 
 const mapStateToProps = (state: AppType): MapStatePropsType => {
@@ -60,7 +58,7 @@ const mapStateToProps = (state: AppType): MapStatePropsType => {
     }
 }
 type MapDispatchType = {
-    setProfileData: (data: ProfileDataType) => void
+    setProfileData: (data: DataType) => void
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {

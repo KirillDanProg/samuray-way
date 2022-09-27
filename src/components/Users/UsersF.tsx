@@ -1,8 +1,9 @@
-import React, {useEffect} from "react";
+import React, { useEffect} from "react";
 import axios from "axios";
 import {UsersPropsType} from "./UsersContainer";
 import styles from './Users.module.css'
 import {User} from "./User";
+import {UsersPagination} from "./UsersPagination";
 
 export const Users = (props: UsersPropsType) => {
     useEffect(() => {
@@ -19,27 +20,13 @@ export const Users = (props: UsersPropsType) => {
         props.unfollow(id)
     }
 
-    const pages: number[] = []
-    const totalPages = props.users.total / props.users.count
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i)
-    }
+
     return (
         <div className={styles.box}>
-            <div className={styles.pagination}>
-                {pages.map(p => {
-                    const changePageHandler = () => {
-                        props.changePage(p)
-                    }
-                    return (
-                        <span key={p}
-                              className={`${styles.paginationNumber} ${props.users.page === p ? styles.active : ""}`}
-                              onClick={changePageHandler}
-                        >
-                            {p}
-                        </span>)
-                })}
-            </div>
+            <UsersPagination page={props.users.page}
+                             count={props.users.count}
+                             total={props.users.total}
+                             changePage={props.changePage}/>
             {props.users.users.map(u => {
                 return (
                     <User key={u.id}
@@ -48,7 +35,7 @@ export const Users = (props: UsersPropsType) => {
                           follow={followHandler}
                           unfollow={unfollowHandler}
                           followed={u.followed}
-                          photos={u.photos.small}
+                          photos={u.photo}
                           status={u.status}
                     />
                 )
@@ -56,4 +43,6 @@ export const Users = (props: UsersPropsType) => {
         </div>
     )
 }
+
+
 

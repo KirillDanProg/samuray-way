@@ -1,4 +1,3 @@
-import {ActionsType} from "../state";
 import img3 from "../../assets/monkey.jpeg";
 import {v1} from "uuid";
 import img from "../../assets/images.jpeg";
@@ -25,6 +24,7 @@ const initialState = {
 }
 
 type InitialStateType = typeof initialState
+type ActionsType = UpdateMessageTextACType | AddMessageACType
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -42,13 +42,8 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 }
 
-type UpdateMessageTextACType = {
-    type: typeof UPDATE_MESSAGE_TEXT,
-    payload: {
-        newMessageText: string
-    }
-}
-export const updateMessageTextAC = (newMessageText: string): UpdateMessageTextACType => {
+type UpdateMessageTextACType = ReturnType<typeof updateMessageTextAC>
+export const updateMessageTextAC = (newMessageText: string) => {
     return {
         type: UPDATE_MESSAGE_TEXT,
         payload: {
@@ -57,10 +52,9 @@ export const updateMessageTextAC = (newMessageText: string): UpdateMessageTextAC
     } as const
 }
 
-type AddMessageACType = {
-    type: typeof ADD_MESSAGE
-}
-export const addMessageAC = (): AddMessageACType => {
+type AddMessageACType = ReturnType<typeof addMessageAC>
+
+export const addMessageAC = () => {
     return {
         type: ADD_MESSAGE,
     } as const

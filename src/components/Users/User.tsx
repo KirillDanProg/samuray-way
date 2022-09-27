@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 type UserPropsType = {
     id: string
     name: string
-    photos:  string | null
+    photos: string
     followed: boolean
     status?: string
     follow: (id: string) => void
