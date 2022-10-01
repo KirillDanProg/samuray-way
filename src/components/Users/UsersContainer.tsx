@@ -28,31 +28,16 @@ type MapDispatchType = {
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
+        debugger
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.users.page}&count=${this.props.users.count}`).then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotal(response.data.totalCount)
         })
     }
 
-    followHandler = (id: string) => {
-        this.props.follow(id)
-    }
-    unfollowHandler = (id: string) => {
-        this.props.unfollow(id)
-    }
-    changePageHandler = (p: number) => {
-        this.props.changePage(p)
-    }
-
     render() {
         return (
-            <Users users={this.props.users}
-                   setUsers={this.props.setUsers}
-                   follow={this.followHandler}
-                   unfollow={this.unfollowHandler}
-                   changePage={this.changePageHandler}
-                   setTotal={this.props.setTotal}
-            />
+            <Users props={this.props}/>
         )
     }
 }

@@ -5,29 +5,34 @@ import styles from './Users.module.css'
 import {User} from "./User";
 import {UsersPagination} from "./UsersPagination";
 
-export const Users = (props: UsersPropsType) => {
+
+type UsersPropsTypeTest = {
+    props: UsersPropsType
+}
+export const Users = (props: UsersPropsTypeTest) => {
+    const {setUsers, users, changePage, follow, unfollow} = props.props
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.users.page}&count=${props.users.count}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${users.page}&count=${users.count}`)
             .then(response => {
-                props.setUsers(response.data.items)
+                setUsers(response.data.items)
             })
-    }, [props.users.page, props.setUsers, props.users.count])
+    }, [users.page, setUsers, users.count])
 
     const followHandler = (id: string) => {
-        props.follow(id)
+        follow(id)
     }
     const unfollowHandler = (id: string) => {
-        props.unfollow(id)
+        unfollow(id)
     }
 
 
     return (
         <div className={styles.box}>
-            <UsersPagination page={props.users.page}
-                             count={props.users.count}
-                             total={props.users.total}
-                             changePage={props.changePage}/>
-            {props.users.users.map(u => {
+            <UsersPagination page={users.page}
+                             count={users.count}
+                             total={users.total}
+                             changePage={changePage}/>
+            {users.users.map(u => {
                 return (
                     <User key={u.id}
                           id={u.id}
