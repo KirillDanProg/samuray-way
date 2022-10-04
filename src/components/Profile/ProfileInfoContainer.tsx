@@ -34,7 +34,8 @@ function withRouter(Component: any) {
 
 class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${this.props.router.params.userId}`)
+        const id = this.props.router.params.userId
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${id ? id : "2"}`)
             .then(res => {
                 this.props.setProfileData(setProfileDataAC(res.data))
             })

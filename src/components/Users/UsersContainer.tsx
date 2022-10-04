@@ -28,7 +28,6 @@ type MapDispatchType = {
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        debugger
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.users.page}&count=${this.props.users.count}`).then(response => {
             this.props.setUsers(response.data.items)
             this.props.setTotal(response.data.totalCount)
