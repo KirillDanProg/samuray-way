@@ -10,7 +10,8 @@ const initialState = {
     error: "" as string,
     total: 0 as number,
     count: 10 as number,
-    page: 1 as number
+    page: 1 as number,
+    disabled: false
 }
 export type InitialUsersStateType = typeof initialState
 
@@ -19,7 +20,8 @@ enum Actions {
     FOLLOW = "FOLLOW",
     UNFOLLOW = "UNFOLLOW",
     SET_PAGE = "SET-PAGE",
-    SET_TOTAL = "SET-TOTAL"
+    SET_TOTAL = "SET-TOTAL",
+    SET_DISABLE = "SET-DISABLE",
 }
 
 export const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsType): InitialUsersStateType => {
@@ -34,12 +36,14 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
             return {...state, page: action.page}
         case Actions.SET_TOTAL:
             return {...state, total: action.total}
+        case Actions.SET_DISABLE:
+            return {...state, disabled: action.isDisabled}
         default:
             return state
     }
 }
 
-type ActionsType = setUserACType | followACType | unfollowACType | setPageACType | setTotalACType
+type ActionsType = setUserACType | followACType | unfollowACType | setPageACType | setTotalACType | setDisableACType
 
 
 export type setUserACType = ReturnType<typeof setUsersAC>
@@ -47,6 +51,7 @@ export type followACType = ReturnType<typeof followAC>
 export type unfollowACType = ReturnType<typeof unfollowAC>
 export type setPageACType = ReturnType<typeof setPageAC>
 export type setTotalACType = ReturnType<typeof setTotalAC>
+export type setDisableACType = ReturnType<typeof setDisableAC>
 
 export const setUsersAC = (users: User[])  => {
     return {
@@ -82,5 +87,12 @@ export const setTotalAC = (total:number ) => {
     return {
         type: Actions.SET_TOTAL,
         total
+    } as const
+}
+
+export const setDisableAC = (isDisabled: boolean) => {
+    return {
+        type: Actions.SET_DISABLE,
+        isDisabled
     } as const
 }

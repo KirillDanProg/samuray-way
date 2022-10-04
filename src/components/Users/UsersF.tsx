@@ -1,52 +1,41 @@
 import React, {useEffect} from "react";
-import axios from "axios";
 import {UsersPropsType} from "./UsersContainer";
 import styles from './Users.module.css'
 import {User} from "./User";
 import {UsersPagination} from "./UsersPagination";
-
+import {userAPI} from "../../api/api";
 
 type UsersPropsTypeTest = {
     props: UsersPropsType
 }
+
 export const Users = (props: UsersPropsTypeTest) => {
-    const {setUsers, users, changePage, follow, unfollow} = props.props
+    const {setUsers, users, changePage, follow, unfollow, setDisable} = props.props
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${users.page}&count=${users.count}`, {
-            withCredentials: true
-        })
-            .then(response => {
-                setUsers(response.data.items)
+        userAPI.getUsers(users.page, users.count)
+            .then(data => {
+                setUsers(data.items)
             })
-    }, [users.page, setUsers, users.count])
+    }, [users.page, users.count, setUsers])
 
     const followHandler = (id: string) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': "98c53cec-c5b7-4a19-9abc-502320b1a878"
+        setDisable(true)
+        userAPI.follow(id).then(data => {
+            if (data.resultCode === 0) {
+                follow(id)
+                setDisable(false)
             }
         })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    follow(id)
-                }
-            })
 
     }
     const unfollowHandler = (id: string) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': "98c53cec-c5b7-4a19-9abc-502320b1a878"
+        setDisable(true)
+        userAPI.unfollow(id).then(data => {
+            if (data.resultCode === 0) {
+                unfollow(id)
+                setDisable(false)
             }
         })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    unfollow(id)
-                }
-            })
-
     }
 
 
@@ -66,6 +55,7 @@ export const Users = (props: UsersPropsTypeTest) => {
                           followed={u.followed}
                           photos={u.photo}
                           status={u.status}
+                          disabled={users.disabled}
                     />
                 )
             })}

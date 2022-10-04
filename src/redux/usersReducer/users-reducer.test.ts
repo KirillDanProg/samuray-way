@@ -9,7 +9,8 @@ beforeEach(() => {
         error: "",
         total: 100,
         count: 10,
-        page: 1
+        page: 1,
+        disabled: false
     }
 })
 

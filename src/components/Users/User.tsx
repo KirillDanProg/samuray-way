@@ -10,9 +10,16 @@ type UserPropsType = {
     status?: string
     follow: (id: string) => void
     unfollow: (id: string) => void
+    disabled: boolean
 }
 
 export const User: FC<UserPropsType> = (props) => {
+    const followHandler = () => {
+        props.follow(props.id)
+    }
+    const unfollowHandler = () => {
+       props.unfollow(props.id)
+    }
     return (
         <div className={styles.userBox}>
             <NavLink to={`/profile/${props.id}`}>
@@ -22,7 +29,8 @@ export const User: FC<UserPropsType> = (props) => {
             <div>{props.status}</div>
 
             <button
-                onClick={props.followed ? () => props.unfollow(props.id) : () => props.follow(props.id)}>
+                disabled={props.disabled}
+                onClick={props.followed ? unfollowHandler : followHandler}>
                 {props.followed ? "Unfollow" : "Follow"}
             </button>
         </div>

@@ -4,14 +4,14 @@ import {RootState} from "../../redux/store";
 import {Dispatch} from "redux";
 import {
     followAC,
-    InitialUsersStateType,
+    InitialUsersStateType, setDisableAC,
     setPageAC, setTotalAC,
     setUsersAC,
     unfollowAC,
     User
 } from "../../redux/usersReducer/users-reducer";
-import axios from "axios";
 import {Users} from "./UsersF";
+import {userAPI} from "../../api/api";
 
 export type UsersPropsType = MapStateType & MapDispatchType
 
@@ -24,13 +24,16 @@ type MapDispatchType = {
     unfollow: (id: string) => void
     changePage: (page: number) => void
     setTotal: (total: number) => void
+    setDisable: (isDisabled: boolean) => void
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.users.page}&count=${this.props.users.count}`).then(response => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotal(response.data.totalCount)
+        const page = this.props.users.page
+        const count = this.props.users.count
+      userAPI.getUsers(page, count).then(data => {
+            this.props.setUsers(data.items)
+            this.props.setTotal(data.totalCount)
         })
     }
 
@@ -43,7 +46,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
 const mapStateToProps = (state: RootState): MapStateType => {
     return {
-        users: state.users
+        users: state.users,
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
@@ -62,6 +65,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
         },
         setTotal: (total: number) => {
             dispatch(setTotalAC(total))
+        },
+        setDisable: (isDisabled: boolean) => {
+            dispatch(setDisableAC(isDisabled))
         }
     }
 }
