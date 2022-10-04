@@ -39,7 +39,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
     render() {
         return (
-            <Users props={this.props}/>
+            <Users {...this.props}/>
         )
     }
 }

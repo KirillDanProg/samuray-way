@@ -5,12 +5,9 @@ import {User} from "./User";
 import {UsersPagination} from "./UsersPagination";
 import {userAPI} from "../../api/api";
 
-type UsersPropsTypeTest = {
-    props: UsersPropsType
-}
+export const Users = (props: UsersPropsType) => {
 
-export const Users = (props: UsersPropsTypeTest) => {
-    const {setUsers, users, changePage, follow, unfollow, setDisable} = props.props
+    const {setUsers, users, changePage, follow, unfollow, setDisable} = props
     useEffect(() => {
         userAPI.getUsers(users.page, users.count)
             .then(data => {
