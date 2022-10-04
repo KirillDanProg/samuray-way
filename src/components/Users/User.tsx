@@ -30,6 +30,7 @@ export const User: FC<UserPropsType> = (props) => {
 
             <button
                 disabled={props.disabled}
+                className={props.disabled ? styles.disabled : ""}
                 onClick={props.followed ? unfollowHandler : followHandler}>
                 {props.followed ? "Unfollow" : "Follow"}
             </button>
