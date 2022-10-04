@@ -10,7 +10,7 @@ beforeEach(() => {
         total: 100,
         count: 10,
         page: 1,
-        disabled: false
+        disabled: null
     }
 })
 

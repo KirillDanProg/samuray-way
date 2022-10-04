@@ -16,21 +16,21 @@ export const Users = (props: UsersPropsType) => {
     }, [users.page, users.count, setUsers])
 
     const followHandler = (id: string) => {
-        setDisable(true)
+        setDisable(id)
         userAPI.follow(id).then(data => {
             if (data.resultCode === 0) {
                 follow(id)
-                setDisable(false)
+                setDisable(null)
             }
         })
 
     }
     const unfollowHandler = (id: string) => {
-        setDisable(true)
+        setDisable(id)
         userAPI.unfollow(id).then(data => {
             if (data.resultCode === 0) {
                 unfollow(id)
-                setDisable(false)
+                setDisable(null)
             }
         })
     }

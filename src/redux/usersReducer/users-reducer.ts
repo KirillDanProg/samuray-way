@@ -11,7 +11,7 @@ const initialState = {
     total: 0 as number,
     count: 10 as number,
     page: 1 as number,
-    disabled: false
+    disabled: null as string | null
 }
 export type InitialUsersStateType = typeof initialState
 
@@ -37,7 +37,7 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
         case Actions.SET_TOTAL:
             return {...state, total: action.total}
         case Actions.SET_DISABLE:
-            return {...state, disabled: action.isDisabled}
+            return {...state, disabled: action.id}
         default:
             return state
     }
@@ -90,9 +90,9 @@ export const setTotalAC = (total:number ) => {
     } as const
 }
 
-export const setDisableAC = (isDisabled: boolean) => {
+export const setDisableAC = (id: string | null) => {
     return {
         type: Actions.SET_DISABLE,
-        isDisabled
+        id
     } as const
 }

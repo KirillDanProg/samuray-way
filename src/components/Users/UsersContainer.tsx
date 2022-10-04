@@ -24,7 +24,8 @@ type MapDispatchType = {
     unfollow: (id: string) => void
     changePage: (page: number) => void
     setTotal: (total: number) => void
-    setDisable: (isDisabled: boolean) => void
+    setDisable: (id: string | null) => void
+
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -66,8 +67,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
         setTotal: (total: number) => {
             dispatch(setTotalAC(total))
         },
-        setDisable: (isDisabled: boolean) => {
-            dispatch(setDisableAC(isDisabled))
+        setDisable: (id: string | null) => {
+            dispatch(setDisableAC(id))
         }
     }
 }
