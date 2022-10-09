@@ -50,7 +50,7 @@ export const Users = (props: UsersPropsType) => {
                           follow={followHandler}
                           unfollow={unfollowHandler}
                           followed={u.followed}
-                          photos={u.photo}
+                          photos={u.photos}
                           status={u.status}
                           disabled={users.disabled}
                     />
