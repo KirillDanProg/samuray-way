@@ -18,5 +18,9 @@ export const userAPI = {
     getUsers: (page: number, count: number) => {
         return instance.get(`users?page=${page}&count=${count}`)
             .then(res => res.data)
+    },
+    getProfileData: (id: number) => {
+        return instance.get(`profile/${id ? id : 2}`)
+            .then(res => res.data)
     }
 }
