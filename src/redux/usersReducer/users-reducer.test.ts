@@ -4,8 +4,16 @@ let initialState: InitialUsersStateType
 
 beforeEach(() => {
     initialState = {
-        users: []
-        ,
+        users:  [
+        {   id: "Q",
+            name: "string",
+            photos: { small: "string", large: "string" },
+            followed: false},
+        {   id: "Q",
+            name: "string",
+            photos: { small: "string", large: "string" },
+            followed: false}
+    ],
         error: "",
         total: 100,
         count: 10,
@@ -23,12 +31,9 @@ test("users should be uploaded", () => {
         }
     }
 
-    const name = "Alex"
-
     const newState = usersReducer(initialState, action)
 
     expect(newState.users.length).toBe(2)
-    expect(newState.users[0].name).toBe(name)
 })
 
 test("user followed should be true", () => {
