@@ -2,7 +2,7 @@ export type User = {
     id: string
     name: string
     status?: string
-    photo: string
+    photos: { small: string, large: string }
     followed: boolean
 }
 const initialState = {
@@ -96,3 +96,4 @@ export const setDisableAC = (id: string | null) => {
         id
     } as const
 }
+
