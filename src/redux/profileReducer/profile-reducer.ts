@@ -1,6 +1,8 @@
 import {v1} from "uuid";
 import img from "../../assets/images.jpeg"
 import {PostDataType, ProfileDataType, ProfileType} from "../../types /ProfileType/ProfileTypes";
+import {Dispatch} from "redux";
+import {userAPI} from "../../api/api";
 
 export type ActionsType = ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
@@ -76,4 +78,13 @@ export const setProfileDataAC = (data: ProfileDataType) => {
     } as const
 }
 
+export const getProfileDataTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        userAPI.getProfileData(userId)
+            .then(data => {
+                dispatch(setProfileDataAC(data))
+            })
+    }
+
+}
 export default profileReducer
