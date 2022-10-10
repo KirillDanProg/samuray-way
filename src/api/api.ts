@@ -17,10 +17,18 @@ export const userAPI = {
     },
     getUsers: (page: number, count: number) => {
         return instance.get(`users?page=${page}&count=${count}`)
-            .then(res => res.data)
+            .then(res => {
+               return res.data
+            })
     },
     getProfileData: (id: number) => {
-        return instance.get(`profile/${id ? id : 2}`)
+        return instance.get(`profile/${id}`)
             .then(res => res.data)
+    }
+}
+
+export const authAPI = {
+    me() {
+        return instance.get("auth/me")
     }
 }
