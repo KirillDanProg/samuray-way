@@ -29,6 +29,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
         const page = this.props.users.page
         const count = this.props.users.count
         this.props.getUsers(page, count)
+
     }
 
     render() {

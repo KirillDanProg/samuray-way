@@ -10,7 +10,7 @@ export const Users = (props: UsersPropsType) => {
 
     useEffect(() => {
        getUsers(users.page, users.count)
-    }, [users.page, users.count, getUsers])
+    }, [users.page, users.count, getUsers, users.total])
 
     const followHandler = (id: string) => {
        follow(id)

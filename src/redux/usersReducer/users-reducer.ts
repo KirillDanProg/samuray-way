@@ -108,6 +108,7 @@ export const getUsersTC = (page: number, count: number) => {
         userAPI.getUsers(page, count)
             .then(data => {
                 dispatch(setUsersAC(data.items))
+                dispatch(setTotalAC(data.totalCount))
             })
     }
 }

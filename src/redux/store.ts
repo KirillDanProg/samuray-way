@@ -23,5 +23,6 @@ type UsersReducerType = ReturnType<typeof usersReducer>
 
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
+// @ts-ignore
+window.store = store
 
