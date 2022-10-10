@@ -84,6 +84,9 @@ export const getProfileDataTC = (userId: number) => {
             .then(data => {
                 dispatch(setProfileDataAC(data))
             })
+            .catch(e => {
+                console.log(e)
+            })
     }
 
 }
