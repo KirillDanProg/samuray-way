@@ -1,3 +1,8 @@
+import {ThunkDispatch} from "redux-thunk";
+import {AppType} from "../store";
+import {AnyAction} from "redux";
+import {userAPI} from "../../api/api";
+
 export type User = {
     id: string
     name: string
@@ -53,7 +58,7 @@ export type setPageACType = ReturnType<typeof setPageAC>
 export type setTotalACType = ReturnType<typeof setTotalAC>
 export type setDisableACType = ReturnType<typeof setDisableAC>
 
-export const setUsersAC = (users: User[])  => {
+export const setUsersAC = (users: User[]) => {
     return {
         type: "SET-USERS",
         payload: {
@@ -71,7 +76,7 @@ export const followAC = (id: string) => {
 }
 export const unfollowAC = (id: string) => {
     return {
-        type:  "UNFOLLOW",
+        type: "UNFOLLOW",
         payload: {
             id
         }
@@ -83,7 +88,7 @@ export const setPageAC = (page: number) => {
         page
     } as const
 }
-export const setTotalAC = (total:number ) => {
+export const setTotalAC = (total: number) => {
     return {
         type: Actions.SET_TOTAL,
         total
@@ -97,3 +102,33 @@ export const setDisableAC = (id: string | null) => {
     } as const
 }
 
+// THUNK CREATORS
+export const getUsersTC = (page: number, count: number) => {
+    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+        userAPI.getUsers(page, count)
+            .then(data => {
+                dispatch(setUsersAC(data.items))
+            })
+    }
+}
+export const followTC = (id: string) => {
+    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+        setDisableAC(id)
+        userAPI.follow(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(id))
+                dispatch(setDisableAC(null))
+            }
+        })
+    }
+}
+export const unfollowTC = (id: string) => {
+    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+        userAPI.unfollow(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowAC(id))
+                dispatch(setDisableAC(null))
+            }
+        })
+    }
+}
