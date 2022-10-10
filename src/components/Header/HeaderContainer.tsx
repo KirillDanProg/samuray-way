@@ -1,40 +1,33 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
-import {RootState} from "../../redux/store";
-import {Dispatch} from "redux";
-import {authMe} from "../../redux/authReducer/authReducer";
+import {AppType, RootState} from "../../redux/store";
+import {AnyAction} from "redux";
+import {authMeTC} from "../../redux/authReducer/authReducer";
+import {ThunkDispatch} from "redux-thunk";
 
 export type HeaderPropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
 
 class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/auth/me", {
-            withCredentials: true
-        })
-            .then(response => response.data.data)
-            .then(data => {
-                this.props.authMeHandler(data.id, data.login, data.email)
-            })
+        this.props.authMe()
     }
-
     render() {
         return (
-         <Header authData={this.props.authData}/>
+            <Header authData={this.props.authData}/>
         )
     }
 }
 
 const mapStateToProps = (state: RootState) => {
     return {
-      authData: state.auth
+        authData: state.auth
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
     return {
-        authMeHandler: (id: number, login: string, email: string) => {
-            dispatch(authMe(id, login, email))
+        authMe: () => {
+            dispatch(authMeTC())
         }
     }
 }
