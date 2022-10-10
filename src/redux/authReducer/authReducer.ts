@@ -1,3 +1,5 @@
+import {authAPI} from "../../api/api";
+import {Dispatch} from "redux";
 
 export type initialAuthStateType = {
     id: number | null
@@ -38,4 +40,13 @@ export const authMe = (id: number, login: string, email: string) => {
             login,
         }
     } as const
+}
+
+export const authMeTC = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.me().then(response => response.data.data)
+            .then(data => {
+                dispatch(authMe(data.id, data.login, data.email))
+            })
+    }
 }
