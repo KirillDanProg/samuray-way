@@ -36,7 +36,15 @@ function withRouter(Component: any) {
 class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType> {
     componentDidMount() {
         const id = Number(this.props.router.params.userId)
-        this.props.getProfileData(id )
+        const defaultID = this.props.authID
+        this.props.getProfileData(id ? id : defaultID)
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileInfoContainerPropsType>) {
+        if(prevProps.authID !== this.props.authID) {
+            const defaultID = this.props.authID
+            this.props.getProfileData(defaultID)
+        }
     }
 
     render() {
@@ -48,12 +56,14 @@ class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType
 
 
 type MapStatePropsType = {
-    profileData: ProfileDataType
+    profileData: ProfileDataType,
+    authID: number
 }
 
 const mapStateToProps = (state: AppType): MapStatePropsType => {
     return {
         profileData: state.profile.profileData,
+        authID: state.auth.id
     }
 }
 type MapDispatchType = {
