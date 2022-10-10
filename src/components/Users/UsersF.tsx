@@ -3,36 +3,20 @@ import {UsersPropsType} from "./UsersContainer";
 import styles from './Users.module.css'
 import {User} from "./User";
 import {UsersPagination} from "./UsersPagination";
-import {userAPI} from "../../api/api";
 
 export const Users = (props: UsersPropsType) => {
 
-    const {setUsers, users, changePage, follow, unfollow, setDisable} = props
+    const {getUsers, users, changePage, follow, unfollow} = props
+
     useEffect(() => {
-        userAPI.getUsers(users.page, users.count)
-            .then(data => {
-                setUsers(data.items)
-            })
-    }, [users.page, users.count, setUsers])
+       getUsers(users.page, users.count)
+    }, [users.page, users.count, getUsers])
 
     const followHandler = (id: string) => {
-        setDisable(id)
-        userAPI.follow(id).then(data => {
-            if (data.resultCode === 0) {
-                follow(id)
-                setDisable(null)
-            }
-        })
-
+       follow(id)
     }
     const unfollowHandler = (id: string) => {
-        setDisable(id)
-        userAPI.unfollow(id).then(data => {
-            if (data.resultCode === 0) {
-                unfollow(id)
-                setDisable(null)
-            }
-        })
+        unfollow(id)
     }
 
 

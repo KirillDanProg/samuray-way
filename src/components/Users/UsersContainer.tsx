@@ -1,17 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
-import {RootState} from "../../redux/store";
-import {Dispatch} from "redux";
+import {AppType, RootState} from "../../redux/store";
+import {AnyAction} from "redux";
 import {
-    followAC,
-    InitialUsersStateType, setDisableAC,
+    followTC, getUsersTC,
+    InitialUsersStateType,
     setPageAC, setTotalAC,
-    setUsersAC,
-    unfollowAC,
-    User
+    unfollowTC,
 } from "../../redux/usersReducer/users-reducer";
 import {Users} from "./UsersF";
-import {userAPI} from "../../api/api";
+import {ThunkDispatch} from "redux-thunk";
 
 export type UsersPropsType = MapStateType & MapDispatchType
 
@@ -19,23 +17,18 @@ type MapStateType = {
     users: InitialUsersStateType
 }
 type MapDispatchType = {
-    setUsers: (user: User[]) => void
+    getUsers: (page: number, count: number) => void
     follow: (id: string) => void
     unfollow: (id: string) => void
     changePage: (page: number) => void
     setTotal: (total: number) => void
-    setDisable: (id: string | null) => void
-
 }
 
 class UsersContainer extends React.Component<UsersPropsType> {
     componentDidMount() {
         const page = this.props.users.page
         const count = this.props.users.count
-      userAPI.getUsers(page, count).then(data => {
-            this.props.setUsers(data.items)
-            this.props.setTotal(data.totalCount)
-        })
+        this.props.getUsers(page, count)
     }
 
     render() {
@@ -50,16 +43,16 @@ const mapStateToProps = (state: RootState): MapStateType => {
         users: state.users,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): MapDispatchType => {
     return {
-        setUsers: (users: User[]) => {
-            dispatch(setUsersAC(users))
+        getUsers: (page: number, count: number) => {
+            dispatch(getUsersTC(page, count))
         },
         follow: (id: string) => {
-            dispatch(followAC(id))
+            dispatch(followTC(id));
         },
         unfollow: (id: string) => {
-            dispatch(unfollowAC(id))
+            dispatch(unfollowTC(id))
         },
         changePage: (page: number) => {
             dispatch(setPageAC(page))
@@ -67,10 +60,7 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
         setTotal: (total: number) => {
             dispatch(setTotalAC(total))
         },
-        setDisable: (id: string | null) => {
-            dispatch(setDisableAC(id))
-        }
     }
 }
-    export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 
