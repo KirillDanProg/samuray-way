@@ -4,10 +4,11 @@ import './App.css';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Friends} from "./components/Friends/Friends";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import {Profile} from "./components/Profile/Profile";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
                         <Route path="/dialogs" element={<DialogsContainer/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/friends" element={<Friends/>}/>
+                        <Route path="/login" element={<Login/>}/>
                     </Routes>
                 </div>
             </div>
