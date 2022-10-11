@@ -9,7 +9,11 @@ export const WithAuthRedirect = (Component: FC<any> | any) => {
        if(!props.isAuth) return <Navigate to={"/login"}/>
        return <Component {...props}/>
    }
-   const mapStateToProps = (state: AppType) =>{
+
+   type MapStateToPropsType = {
+       isAuth: boolean
+   }
+   const mapStateToProps = (state: AppType): MapStateToPropsType =>{
        return {
            isAuth: state.auth.login
        }
