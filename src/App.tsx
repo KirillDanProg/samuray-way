@@ -4,10 +4,10 @@ import './App.css';
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
 import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Friends} from "./components/Friends/Friends";
-import UsersContainer from "./components/Users/UsersContainer";
 import {Profile} from "./components/Profile/Profile";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import UsersContainer from "./components/Users/UsersContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 

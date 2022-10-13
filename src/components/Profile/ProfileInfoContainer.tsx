@@ -5,8 +5,8 @@ import {AppType} from "../../redux/store";
 import {ProfileInfo} from "./ProfileInfo";
 import {getProfileDataTC} from "../../redux/profileReducer/profile-reducer";
 import {AnyAction} from "redux";
-import {useParams} from "react-router-dom";
 import {ThunkDispatch} from "redux-thunk";
+import {withRouter} from "../../hoc/withRouter";
 
 type ParamsType = {
     userId: number
@@ -17,21 +17,6 @@ export type ProfileInfoContainerPropsType = MapStatePropsType & MapDispatchType 
         params: ParamsType
     }
 }
-
-function withRouter(Component: any) {
-    function ComponentWithRouterProp(props: any) {
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{params}}
-            />
-        );
-    }
-
-    return ComponentWithRouterProp;
-}
-
 
 class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType> {
     componentDidMount() {
@@ -59,6 +44,9 @@ type MapStatePropsType = {
     profileData: ProfileDataType,
     authID: number
 }
+type MapDispatchType = {
+    getProfileData: (userId: number) => void
+}
 
 const mapStateToProps = (state: AppType): MapStatePropsType => {
     return {
@@ -66,9 +54,7 @@ const mapStateToProps = (state: AppType): MapStatePropsType => {
         authID: state.auth.id
     }
 }
-type MapDispatchType = {
-    getProfileData: (userId: number) => void
-}
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
     return {
         getProfileData: (userId: number) => {

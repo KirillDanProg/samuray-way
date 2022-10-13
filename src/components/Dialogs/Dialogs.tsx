@@ -39,10 +39,8 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
             <div className={styles.colMessages}>
                 {messageElements}
 
-                {/*<form className={styles.form}>*/}
-                    <input onChange={updateMessageTextHandler} value={props.dialogs.messageText} className={styles.input}/>
-                    <button onClick={addMessageHandler}>send</button>
-                {/*</form>*/}
+                <input onChange={updateMessageTextHandler} value={props.dialogs.messageText} className={styles.input}/>
+                <button onClick={addMessageHandler}>send</button>
 
             </div>
         </div>

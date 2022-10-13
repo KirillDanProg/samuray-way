@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppType, RootState} from "../../redux/store";
-import {AnyAction} from "redux";
+import {AnyAction, compose} from "redux";
 import {
     followTC, getUsersTC,
     InitialUsersStateType,
@@ -64,6 +64,10 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): 
         },
     }
 }
-const UsersWithAuthRedirect = WithAuthRedirect(UsersContainer)
-export default connect(mapStateToProps, mapDispatchToProps)(UsersWithAuthRedirect)
+export  default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    WithAuthRedirect,
+)(Users)
+// const UsersWithAuthRedirect = WithAuthRedirect(UsersContainer)
+// export default connect(mapStateToProps, mapDispatchToProps)(UsersWithAuthRedirect)
 
