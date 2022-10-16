@@ -30,7 +30,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
         const page = this.props.users.page
         const count = this.props.users.count
         this.props.getUsers(page, count)
-
     }
 
     render() {
@@ -64,10 +63,9 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): 
         },
     }
 }
-export  default compose(
+export  default compose<React.ComponentType>(
     connect(mapStateToProps, mapDispatchToProps),
     WithAuthRedirect,
-)(Users)
-// const UsersWithAuthRedirect = WithAuthRedirect(UsersContainer)
-// export default connect(mapStateToProps, mapDispatchToProps)(UsersWithAuthRedirect)
+)(UsersContainer)
+
 
