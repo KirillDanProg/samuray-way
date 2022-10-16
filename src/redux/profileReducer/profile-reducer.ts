@@ -2,17 +2,21 @@ import {v1} from "uuid";
 import img from "../../assets/images.jpeg"
 import {PostDataType, ProfileDataType, ProfileType} from "../../types /ProfileType/ProfileTypes";
 import {Dispatch} from "redux";
-import {userAPI} from "../../api/api";
+import {profileAPI, userAPI} from "../../api/api";
 
 export type ActionsType = ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
     ReturnType<typeof addPostAC> |
-    ReturnType<typeof setProfileDataAC>
+    ReturnType<typeof setProfileDataAC> |
+    ReturnType<typeof updateUserStatusAC> |
+    ReturnType<typeof getUserStatusAC>
 
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 const DELETE_POST = "DELETE-POST"
 const SET_PROFILE_DATA = "SET-PROFILE-DATA"
+const UPDATE_USER_STATUS = "UPDATE-USER-STATUS"
+const GET_USER_STATUS = "GET-USER-STATUS"
 
 const initialState: ProfileType = {
     postsData: [] as PostDataType[],
@@ -43,6 +47,10 @@ const profileReducer = (state: ProfileType = initialState, action: ActionsType):
             return {...state, postsData: state.postsData.filter(post => post.id !== action.payload)}
         case SET_PROFILE_DATA:
             return {...state, profileData: action.data}
+        case UPDATE_USER_STATUS:
+            return {...state, profileData: {...state.profileData, status: action.payload.status}}
+        case GET_USER_STATUS:
+            return {...state, profileData: {...state.profileData, status: action.status}}
         default:
             return state
     }
@@ -51,6 +59,22 @@ const profileReducer = (state: ProfileType = initialState, action: ActionsType):
 export const addPostAC = () => {
     return {
         type: ADD_POST
+    } as const
+}
+
+export const updateUserStatusAC = (status: string | undefined) => {
+    return {
+        type: UPDATE_USER_STATUS,
+        payload: {
+            status
+        }
+    } as const
+}
+
+export const getUserStatusAC = (status: string) => {
+    return {
+        type: GET_USER_STATUS,
+        status
     } as const
 }
 
@@ -68,9 +92,6 @@ export const deletePostAC = (id: string) => {
     } as const
 }
 
-export type DataType = {
-    data: ProfileDataType
-}
 export const setProfileDataAC = (data: ProfileDataType) => {
     return {
         type: SET_PROFILE_DATA,
@@ -78,6 +99,8 @@ export const setProfileDataAC = (data: ProfileDataType) => {
     } as const
 }
 
+
+// THUNK CREATORS
 export const getProfileDataTC = (userId: number) => {
     return (dispatch: Dispatch) => {
         userAPI.getProfileData(userId)
@@ -90,4 +113,23 @@ export const getProfileDataTC = (userId: number) => {
     }
 
 }
+export const changeUserStatusTC = (status: string | undefined) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateUserStatus(status)
+            .then(res => {
+                if (res.resultCode === 0) {
+                    dispatch(updateUserStatusAC(status))
+                }
+
+            })
+    }
+}
+export const getUserStatusTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getUserStatus(id)
+            .then(data => dispatch(getUserStatusAC(data)))
+            .catch(err => console.warn(err))
+    }
+}
+
 export default profileReducer
