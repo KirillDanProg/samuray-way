@@ -1,8 +1,9 @@
 import React, {FC} from "react";
 import styles from "./Header.module.css"
 import ThemeToggle from "./ThemeToggle";
-import Login from "../Login/Login";
 import {initialAuthStateType} from "../../redux/authReducer/authReducer";
+import {NavLink} from "react-router-dom";
+import LogoutContainer from "../Login/Logout";
 
 
 type HeaderPropsTypeInner = {
@@ -20,7 +21,7 @@ export const Header: FC<HeaderPropsTypeInner> = (props) => {
             <Logo/>
 
             {
-                props.authData.login ? props.authData.login :  <Login/>
+                props.authData.login ? props.authData.login && <LogoutContainer/> :  <NavLink to={"login"}>Login</NavLink>
             }
 
 

@@ -108,7 +108,7 @@ export const getProfileDataTC = (userId: number) => {
                 dispatch(setProfileDataAC(data))
             })
             .catch(e => {
-                console.log(e)
+                console.warn(e.message)
             })
     }
 
@@ -120,8 +120,8 @@ export const changeUserStatusTC = (status: string | undefined) => {
                 if (res.resultCode === 0) {
                     dispatch(updateUserStatusAC(status))
                 }
-
             })
+            .catch(err => console.warn(err))
     }
 }
 export const getUserStatusTC = (id: number) => {

@@ -6,9 +6,9 @@ import {Sidebar} from "./components/Sidebar/Sidebar";
 import {Friends} from "./components/Friends/Friends";
 import {Profile} from "./components/Profile/Profile";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import UsersContainer from "./components/Users/UsersContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import LoginContainer from "./components/Login/LoginContainer";
 
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
                         <Route path="/dialogs" element={<DialogsContainer/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/friends" element={<Friends/>}/>
-                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/login" element={<LoginContainer/>}/>
                     </Routes>
                 </div>
             </div>

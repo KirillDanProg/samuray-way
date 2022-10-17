@@ -1,5 +1,6 @@
 import {authAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {LoginDataType} from "../../components/Login/Login";
 
 export type initialAuthStateType = {
     id: number | null
@@ -17,7 +18,7 @@ export const USER_AUTH = "USER-AUTH"
 
 
 export const authReducer = (state: initialAuthStateType = initialState, action: ActionsType): initialAuthStateType => {
-    switch(action.type) {
+    switch (action.type) {
         case USER_AUTH:
             return {
                 ...state,
@@ -31,7 +32,7 @@ export const authReducer = (state: initialAuthStateType = initialState, action: 
 }
 
 
-export const authMe = (id: number, login: string, email: string) => {
+export const authMe = (id: number | null, login: string | null, email: string | null) => {
     return {
         type: USER_AUTH,
         payload: {
@@ -47,6 +48,29 @@ export const authMeTC = () => {
         authAPI.me().then(response => response.data.data)
             .then(data => {
                 dispatch(authMe(data.id, data.login, data.email))
+            })
+    }
+}
+export const loginTC = (data: LoginDataType) => {
+    return (dispatch: Dispatch) => {
+        authAPI.login(data).then(res => {
+            if (res.data.resultCode === 0) {
+                authAPI.me().then(response => response.data.data)
+                    .then(data => {
+                        dispatch(authMe(data.id, data.login, data.email))
+                    })
+            }
+        })
+    }
+}
+
+export const logoutTC = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logout()
+            .then(res => {
+               if(res.data.resultCode === 0) {
+                   dispatch(authMe(null, null, null))
+               }
             })
     }
 }
