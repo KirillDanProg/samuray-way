@@ -12,6 +12,12 @@ class HeaderContainer extends React.Component<HeaderPropsType> {
     componentDidMount() {
         this.props.authMe()
     }
+    componentDidUpdate(prevProps: Readonly<HeaderPropsType>, prevState: Readonly<{}>) {
+        if(prevProps.authData.isLogin !== this.props.authData.isLogin) {
+            this.props.authMe()
+        }
+    }
+
     render() {
         return (
             <Header authData={this.props.authData}/>

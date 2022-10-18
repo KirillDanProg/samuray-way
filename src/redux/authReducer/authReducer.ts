@@ -6,15 +6,19 @@ export type initialAuthStateType = {
     id: number | null
     email: string | null
     login: string | null
+    isLogin?: boolean
 }
 const initialState = {
     id: null,
     email: null,
-    login: null
+    login: null,
+    isLogin: false
 }
-type ActionsType = ReturnType<typeof authMe>
+type ActionsType = ReturnType<typeof authMe> |
+    ReturnType<typeof isLogin>
 
 export const USER_AUTH = "USER-AUTH"
+export const LOGINIZATION = "LOGINIZATION"
 
 
 export const authReducer = (state: initialAuthStateType = initialState, action: ActionsType): initialAuthStateType => {
@@ -26,6 +30,8 @@ export const authReducer = (state: initialAuthStateType = initialState, action: 
                 login: action.payload.login,
                 email: action.payload.email,
             }
+        case LOGINIZATION:
+            return {...state, isLogin: action.payload.isLogin}
         default:
             return state
     }
@@ -33,6 +39,7 @@ export const authReducer = (state: initialAuthStateType = initialState, action: 
 
 
 export const authMe = (id: number | null, login: string | null, email: string | null) => {
+
     return {
         type: USER_AUTH,
         payload: {
@@ -41,6 +48,14 @@ export const authMe = (id: number | null, login: string | null, email: string | 
             login,
         }
     } as const
+}
+const isLogin = (isLogin: boolean) => {
+    return {
+        type: LOGINIZATION,
+        payload: {
+            isLogin
+        }
+    }as const
 }
 
 export const authMeTC = () => {
@@ -55,10 +70,11 @@ export const loginTC = (data: LoginDataType) => {
     return (dispatch: Dispatch) => {
         authAPI.login(data).then(res => {
             if (res.data.resultCode === 0) {
-                authAPI.me().then(response => response.data.data)
-                    .then(data => {
-                        dispatch(authMe(data.id, data.login, data.email))
-                    })
+                dispatch(isLogin(true))
+                // authAPI.me().then(response => response.data.data)
+                //     .then(data => {
+                //         dispatch(authMe(data.id, data.login, data.email))
+                //     })
             }
         })
     }
@@ -68,9 +84,10 @@ export const logoutTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.logout()
             .then(res => {
-               if(res.data.resultCode === 0) {
-                   dispatch(authMe(null, null, null))
-               }
+                if (res.data.resultCode === 0) {
+                    dispatch(authMe(null, null, null))
+                    dispatch(isLogin(false))
+                }
             })
     }
 }
