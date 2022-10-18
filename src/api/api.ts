@@ -1,5 +1,7 @@
 import axios from "axios";
 import {LoginDataType} from "../components/Login/Login";
+import {AuthMeType, GetUsersType, ProfileDataType, ResponseType} from "./api-types";
+
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -11,15 +13,15 @@ const instance = axios.create({
 
 export const userAPI = {
     follow: (id: string) => {
-        return instance.post(`follow/${id}`).then(res => res.data)
+        return instance.post<ResponseType<{}>>(`follow/${id}`).then(res => res.data)
     },
     unfollow: (id: string) => {
-        return instance.delete(`follow/${id}`).then(res => res.data)
+        return instance.delete<ResponseType<{}>>(`follow/${id}`).then(res => res.data)
     },
     getUsers: (page: number, count: number) => {
-        return instance.get(`users?page=${page}&count=${count}`)
+        return instance.get<GetUsersType>(`users?page=${page}&count=${count}`)
             .then(res => {
-               return res.data
+                return res.data
             })
     },
     getProfileData: (id: number) => {
@@ -29,28 +31,28 @@ export const userAPI = {
 
 export const authAPI = {
     me() {
-        return instance.get("auth/me")
+        return instance.get<ResponseType<AuthMeType>>("auth/me")
     },
     login(data: LoginDataType) {
-        return instance.post("auth/login", {email: data.login, password: data.password})
+        return instance.post<ResponseType<{ userId: number }>>("auth/login", {email: data.login, password: data.password})
     },
     logout() {
-        return instance.delete("auth/login")
+        return instance.delete<ResponseType<{}>>("auth/login")
     }
 }
 export const profileAPI = {
-    getUserStatus(userId:number) {
+    getUserStatus(userId: number) {
         return instance.get(`profile/status/${userId}`).then(res => {
-           return res.data
+            return res.data
         })
     },
     getProfileData: (id: number) => {
-        return instance.get(`profile/${id}`)
+        return instance.get<ProfileDataType>(`profile/${id}`)
             .then(res => res.data)
     },
     updateUserStatus: (status: string | undefined) => {
-        return instance.put(`profile/status`, {status: status}).then(res => {
-          return res.data
+        return instance.put<ResponseType<{ }>>(`profile/status`, {status: status}).then(res => {
+            return res.data
         })
     }
 }

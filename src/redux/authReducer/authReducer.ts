@@ -71,10 +71,6 @@ export const loginTC = (data: LoginDataType) => {
         authAPI.login(data).then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(isLogin(true))
-                // authAPI.me().then(response => response.data.data)
-                //     .then(data => {
-                //         dispatch(authMe(data.id, data.login, data.email))
-                //     })
             }
         })
     }
