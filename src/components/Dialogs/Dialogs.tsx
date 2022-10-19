@@ -3,6 +3,7 @@ import styles from "./Dialogs.module.css"
 import {DialogItem} from "./DialogItem/DialogItem";
 import {DialogMessage} from "./Message/DialogMessage";
 import {DialogType, MessageDataType} from "../../types /DialogsType/DialogsTypes";
+import DialogsForm from "./Message/DialogsForm";
 
 
 export type DialogsPropsType = {
@@ -11,8 +12,7 @@ export type DialogsPropsType = {
         messagesData: Array<MessageDataType>
         messageText: string
     }
-    addMessage: () => void
-    updateMessageText: (message: string) => void
+    addMessage: (message: string) => void
 }
 export const Dialogs: FC<DialogsPropsType> = (props) => {
     const dialogElements = props.dialogs.dialogsData.map((dialog) => (
@@ -23,13 +23,10 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
         <DialogMessage key={message.id} message={message.message} id={message.id} img={message.img}/>
     ))
 
-    const updateMessageTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.updateMessageText(e.currentTarget.value)
+    const addMessageHandler = (message: string) => {
+        props.addMessage(message)
     }
 
-    const addMessageHandler = () => {
-        props.addMessage()
-    }
 
     return (
         <div className={styles.dialogsContainer}>
@@ -39,8 +36,7 @@ export const Dialogs: FC<DialogsPropsType> = (props) => {
             <div className={styles.colMessages}>
                 {messageElements}
 
-                <input onChange={updateMessageTextHandler} value={props.dialogs.messageText} className={styles.input}/>
-                <button onClick={addMessageHandler}>send</button>
+                <DialogsForm onSubmit={addMessageHandler}/>
 
             </div>
         </div>
