@@ -62,7 +62,7 @@ export const addPostAC = () => {
     } as const
 }
 
-export const updateUserStatusAC = (status: string | undefined) => {
+export const updateUserStatusAC = (status: string) => {
     return {
         type: UPDATE_USER_STATUS,
         payload: {
@@ -113,7 +113,7 @@ export const getProfileDataTC = (userId: number) => {
     }
 
 }
-export const changeUserStatusTC = (status: string | undefined) => {
+export const changeUserStatusTC = (status: string) => {
     return (dispatch: Dispatch) => {
         profileAPI.updateUserStatus(status)
             .then(res => {

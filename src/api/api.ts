@@ -1,6 +1,7 @@
 import axios from "axios";
 import {LoginDataType} from "../components/Login/Login";
-import {AuthMeType, GetUsersType, ProfileDataType, ResponseType} from "./api-types";
+import {AuthMeType, GetUsersType, ResponseType} from "./api-types";
+import {ProfileDataType} from "../types /ProfileType/ProfileTypes";
 
 
 const instance = axios.create({
@@ -50,7 +51,7 @@ export const profileAPI = {
         return instance.get<ProfileDataType>(`profile/${id}`)
             .then(res => res.data)
     },
-    updateUserStatus: (status: string | undefined) => {
+    updateUserStatus: (status: string) => {
         return instance.put<ResponseType<{ }>>(`profile/status`, {status: status}).then(res => {
             return res.data
         })
