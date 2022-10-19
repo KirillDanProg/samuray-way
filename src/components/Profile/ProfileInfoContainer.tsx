@@ -20,26 +20,29 @@ export type ProfileInfoContainerPropsType = MapStatePropsType & MapDispatchType 
 
 class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType> {
     initData = () => {
-        const defaultID = this.props.authID
-        const id = Number(this.props.router.params.userId)
-        this.props.getProfileData(id ? id : defaultID)
-        this.props.getUserStatus(id ? id : defaultID)
+        if(this.props.authID) {
+            const defaultID = this.props.authID
+            const id = Number(this.props.router.params.userId)
+            this.props.getProfileData(id ? id : defaultID)
+            this.props.getUserStatus(id ? id : defaultID)
+        }
     }
 
     componentDidMount() {
         this.initData()
     }
 
-    componentDidUpdate(prevProps: Readonly<ProfileInfoContainerPropsType>) {
-        if (prevProps.authID !== this.props.authID) {
-            this.initData()
-        }
-        if (prevProps.profileData.status !== this.props.profileData.status) {
-            this.changeUserStatus(this.props.profileData.status)
-        }
-    }
+    // componentDidUpdate(prevProps: Readonly<ProfileInfoContainerPropsType>) {
+    //     const status = this.props.profileData.status
+    //     if (prevProps.authID !== this.props.authID) {
+    //         this.initData()
+    //     }
+    //     if (prevProps.profileData.status !== status && status) {
+    //         this.changeUserStatus(this.props.profileData.status)
+    //     }
+    // }
 
-    changeUserStatus = (status: string | undefined) => {
+    changeUserStatus = (status: string) => {
         this.props.updateUserStatus(status)
     }
 
@@ -57,7 +60,7 @@ type MapStatePropsType = {
 }
 type MapDispatchType = {
     getProfileData: (userId: number) => void
-    updateUserStatus: (status: string | undefined) => void
+    updateUserStatus: (status: string) => void
     getUserStatus: (id: number) => void
 }
 
@@ -74,7 +77,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): 
         getProfileData: (userId: number) => {
             dispatch(getProfileDataTC(userId))
         },
-        updateUserStatus: (status: string | undefined) => {
+        updateUserStatus: (status: string) => {
             dispatch(changeUserStatusTC(status))
         },
         getUserStatus: (id: number) => {
