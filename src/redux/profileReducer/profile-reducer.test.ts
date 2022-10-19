@@ -11,10 +11,13 @@ beforeEach(() => {
             {id: v1(), postText: "Looking for a job", likes: 496, img: "img3"},
         ],
         profileData: {
-            userId: "string",
+            userId: 0,
             fullName: "Kirill",
-            photos: {small: "string"},
-            followed: false
+            status: "",
+            photos: {small: "string", large: "string"},
+            followed: false,
+            lookingForAJob: true,
+            lookingForAJobDescription: "string",
         },
         postText: "new post",
         error: false,
