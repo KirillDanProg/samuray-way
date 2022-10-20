@@ -21,28 +21,19 @@ const GET_USER_STATUS = "GET-USER-STATUS"
 const initialState: ProfileType = {
     postsData: [] as PostDataType[],
     profileData: {} as ProfileDataType,
-    postText: "",
-    error: false,
-    errorMessage: "",
 }
 
 
 const profileReducer = (state: ProfileType = initialState, action: ActionsType): ProfileType => {
     switch (action.type) {
         case ADD_POST:
-            if (state.postText.trim()) {
-                const newPost = {
-                    id: v1(),
-                    postText: state.postText,
-                    likes: 0,
-                    img: img
-                }
-                return {...state, postsData: [...state.postsData, newPost,], postText: ""}
-            } else {
-                return {...state, error: true, errorMessage: "field is required"}
+            const newPost = {
+                id: v1(),
+                postText: action.postText,
+                likes: 0,
+                img: img
             }
-        case UPDATE_POST_TEXT:
-            return {...state, postText: action.payload}
+            return {...state, postsData: [...state.postsData, newPost]}
         case DELETE_POST:
             return {...state, postsData: state.postsData.filter(post => post.id !== action.payload)}
         case SET_PROFILE_DATA:
@@ -56,9 +47,10 @@ const profileReducer = (state: ProfileType = initialState, action: ActionsType):
     }
 }
 
-export const addPostAC = () => {
+export const addPostAC = (postText: string) => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        postText
     } as const
 }
 

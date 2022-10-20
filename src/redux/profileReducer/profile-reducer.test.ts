@@ -1,6 +1,6 @@
 import {ProfileType} from "../../types /ProfileType/ProfileTypes";
 import {v1} from "uuid";
-import profileReducer, {addPostAC, deletePostAC, updatePostTextAC} from "./profile-reducer";
+import profileReducer, {addPostAC, deletePostAC} from "./profile-reducer";
 
 let initialState: ProfileType
 beforeEach(() => {
@@ -19,28 +19,16 @@ beforeEach(() => {
             lookingForAJob: true,
             lookingForAJobDescription: "string",
         },
-        postText: "new post",
-        error: false,
-        errorMessage: "",
     }
 })
 
 test("post should be added", () => {
 
-
-    const newState = profileReducer(initialState, addPostAC())
+const postText = "some text"
+    const newState = profileReducer(initialState, addPostAC(postText))
 
     expect(newState.postsData.length).toBe(4)
 
-})
-
-test("post text should be updated", () => {
-
-    const newPostText = "new post text"
-
-    const newState = profileReducer(initialState, updatePostTextAC(newPostText))
-
-    expect(newState.postText).toBe(newPostText)
 })
 
 test("post should be deleted", () => {

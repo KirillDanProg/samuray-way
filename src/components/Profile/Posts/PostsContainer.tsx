@@ -1,6 +1,6 @@
 import React from "react";
 import {NewPost} from "./NewPost";
-import {addPostAC, deletePostAC, updatePostTextAC} from "../../../redux/profileReducer/profile-reducer";
+import {addPostAC, deletePostAC} from "../../../redux/profileReducer/profile-reducer";
 import {Post} from "./Post";
 import {ProfileType} from "../../../types /ProfileType/ProfileTypes";
 import {connect} from "react-redux";
@@ -10,14 +10,9 @@ import {AppType} from "../../../redux/store";
 
 
 const Posts = (props: PostsPropsType) => {
-    const {profile} = props
     return (
         <div>
-            <NewPost error={profile.error}
-                     errorMessage={profile.errorMessage}
-                     postText={profile.postText}
-                     addPost={props.addPost}
-                     updatePostText={props.updatePostText}
+            <NewPost addPost={props.addPost}
             />
             {props.profile.postsData.map((post) => (
                 <Post img={post.img}
@@ -38,8 +33,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    addPost: () => void
-    updatePostText: (id: string) => void
+    addPost: (postText: string) => void
     deletePost: (id: string) => void
 }
 
@@ -51,11 +45,8 @@ const mapStateToProps = (state: AppType): MapStatePropsType => {
 
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        addPost: () => {
-            dispatch(addPostAC())
-        },
-        updatePostText: (id: string) => {
-            dispatch(updatePostTextAC(id))
+        addPost: (postText: string) => {
+            dispatch(addPostAC(postText))
         },
         deletePost: (id: string) => {
            dispatch(deletePostAC(id))
