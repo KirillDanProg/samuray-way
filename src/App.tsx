@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 
 import {BrowserRouter, Route, Routes,} from "react-router-dom";
@@ -9,9 +9,21 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import LoginContainer from "./components/Login/LoginContainer";
+import {authMeTC} from "./redux/authReducer/authReducer";
+import {useAppDispatch, useAppSelector} from "./common/hooks";
 
 
 const App = () => {
+    const email = useAppSelector(state => state.auth.email)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(authMeTC())
+    }, [])
+
+    useEffect(() => {
+        dispatch(authMeTC())
+    }, [email])
     return (
         <BrowserRouter>
             <div className="App">
