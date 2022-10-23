@@ -98,6 +98,9 @@ export const getProfileDataTC = (userId: number) => {
         userAPI.getProfileData(userId)
             .then(data => {
                 dispatch(setProfileDataAC(data))
+                profileAPI.getUserStatus(userId)
+                    .then(data => dispatch(getUserStatusAC(data)))
+                    .catch(err => console.warn(err))
             })
             .catch(e => {
                 console.warn(e.message)
@@ -106,6 +109,7 @@ export const getProfileDataTC = (userId: number) => {
 
 }
 export const changeUserStatusTC = (status: string) => {
+    debugger
     return (dispatch: Dispatch) => {
         profileAPI.updateUserStatus(status)
             .then(res => {

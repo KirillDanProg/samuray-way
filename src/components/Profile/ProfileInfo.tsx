@@ -2,17 +2,19 @@ import React, {FC} from "react";
 import styles from "./Profile.module.css"
 import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
 import EditableSpan from "../../common/superComponents/EditableSpan";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type ProfileInfoType = {
     profileData: ProfileDataType
     changeStatus: (status: string) => void
+    authID: number
 }
-export const ProfileInfo: FC<ProfileInfoType> = (props) => {
+ const ProfileInfo: FC<ProfileInfoType> = (props) => {
     const changeStatusHandler = (status: string) => {
         props.changeStatus(status)
     }
-    if (props.profileData.userId) {
+    if (props.authID && props.profileData.userId) {
 
         const {profileData} = props
         const photo = profileData.photos.small
@@ -45,3 +47,5 @@ export const UserStatus: FC<UserStatusType> = (props) => {
         </div>
     )
 }
+
+export default WithAuthRedirect(ProfileInfo)

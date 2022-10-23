@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
     users: usersReducer,
     auth: authReducer
 })
-export type RootState = ReturnType<typeof store.getState>
 
 export type AppType = DialogsReducerType & ProfileReducerType & SidebarReducerType & UsersReducerType
 type DialogsReducerType = ReturnType<typeof dialogsReducer>
@@ -21,6 +20,8 @@ type ProfileReducerType = ReturnType<typeof profileReducer>
 type SidebarReducerType = ReturnType<typeof sidebarReducer>
 type UsersReducerType = ReturnType<typeof usersReducer>
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
 export type AppActionsType = UsersActionsType | DialogsActionsType | AuthActionsType | ProfileActionsType
 
 

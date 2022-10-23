@@ -2,11 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
 import {AppActionsType, AppType} from "../../redux/store";
-import {ProfileInfo} from "./ProfileInfo";
 import {changeUserStatusTC, getProfileDataTC, getUserStatusTC} from "../../redux/profileReducer/profile-reducer";
-import { compose} from "redux";
+import {compose} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {withRouter} from "../../hoc/withRouter";
+import ProfileInfo from "./ProfileInfo";
 
 type ParamsType = {
     userId: number
@@ -18,27 +18,17 @@ export type ProfileInfoContainerPropsType = MapStatePropsType & MapDispatchType 
     }
 }
 
-class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType> {
+class ProfileInfoContainer extends React.PureComponent<ProfileInfoContainerPropsType> {
     initData = () => {
         if (this.props.authID) {
             const defaultID = this.props.authID
             const id = Number(this.props.router.params.userId)
             this.props.getProfileData(id ? id : defaultID)
-            this.props.getUserStatus(id ? id : defaultID)
         }
     }
 
     componentDidMount() {
         this.initData()
-    }
-
-    componentDidUpdate(prevProps: Readonly<ProfileInfoContainerPropsType>) {
-        if (prevProps.authID !== this.props.authID) {
-            this.initData()
-        }
-        if (this.props.profileData.userId !== prevProps.profileData.userId) {
-            this.props.getUserStatus(this.props.profileData.userId )
-        }
     }
 
     changeUserStatus = (status: string) => {
@@ -47,7 +37,9 @@ class ProfileInfoContainer extends React.Component<ProfileInfoContainerPropsType
 
     render() {
         return (
-            <ProfileInfo profileData={this.props.profileData} changeStatus={this.changeUserStatus}/>
+            <ProfileInfo profileData={this.props.profileData}
+                         changeStatus={this.changeUserStatus}
+                         authID={this.props.authID}/>
         )
     }
 }
