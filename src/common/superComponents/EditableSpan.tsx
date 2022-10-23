@@ -1,4 +1,5 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react"
+
 type EditableSpanType = {
     value: string | undefined
     callback: (value: string) => void
@@ -6,6 +7,7 @@ type EditableSpanType = {
 export const EditableSpan: FC<EditableSpanType>= (props: any) => {
     const [value, setValue] = useState(props.value)
     const [editMode, setEditMode] = useState(false)
+
     useEffect(() => {
         setValue(props.value)
     }, [props.value])

@@ -22,9 +22,10 @@ const initialState = {
 }
 
 export type InitialStateType = typeof initialState
-type ActionsType = AddMessageACType
 
-const dialogsReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export type DialogsActionsType = AddMessageACType
+
+const dialogsReducer = (state: InitialStateType = initialState, action: DialogsActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage = {

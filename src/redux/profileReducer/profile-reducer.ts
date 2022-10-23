@@ -4,7 +4,7 @@ import {PostDataType, ProfileDataType, ProfileType} from "../../types /ProfileTy
 import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../../api/api";
 
-export type ActionsType = ReturnType<typeof deletePostAC> |
+export type ProfileActionsType = ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
     ReturnType<typeof addPostAC> |
     ReturnType<typeof setProfileDataAC> |
@@ -24,7 +24,7 @@ const initialState: ProfileType = {
 }
 
 
-const profileReducer = (state: ProfileType = initialState, action: ActionsType): ProfileType => {
+const profileReducer = (state: ProfileType = initialState, action: ProfileActionsType): ProfileType => {
     switch (action.type) {
         case ADD_POST:
             const newPost = {

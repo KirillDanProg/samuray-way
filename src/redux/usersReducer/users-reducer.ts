@@ -29,7 +29,7 @@ enum Actions {
     SET_DISABLE = "SET-DISABLE",
 }
 
-export const usersReducer = (state: InitialUsersStateType = initialState, action: ActionsType): InitialUsersStateType => {
+export const usersReducer = (state: InitialUsersStateType = initialState, action: UsersActionsType): InitialUsersStateType => {
     switch (action.type) {
         case Actions.SET_USERS:
             return {...state, users: [...action.payload.users]}
@@ -48,7 +48,7 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
     }
 }
 
-type ActionsType = setUserACType | followACType | unfollowACType | setPageACType | setTotalACType | setDisableACType
+export type UsersActionsType = setUserACType | followACType | unfollowACType | setPageACType | setTotalACType | setDisableACType
 
 
 export type setUserACType = ReturnType<typeof setUsersAC>

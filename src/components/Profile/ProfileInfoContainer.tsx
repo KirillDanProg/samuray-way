@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
-import {AppType} from "../../redux/store";
+import {AppActionsType, AppType} from "../../redux/store";
 import {ProfileInfo} from "./ProfileInfo";
 import {changeUserStatusTC, getProfileDataTC, getUserStatusTC} from "../../redux/profileReducer/profile-reducer";
-import {AnyAction, compose} from "redux";
+import { compose} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {withRouter} from "../../hoc/withRouter";
 
@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): MapDispatchType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AppActionsType>): MapDispatchType => {
     return {
         getProfileData: (userId: number) => {
             dispatch(getProfileDataTC(userId))
@@ -80,7 +80,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): 
             dispatch(changeUserStatusTC(status))
         },
         getUserStatus: (id: number) => {
-
             dispatch(getUserStatusTC(id))
         }
     }

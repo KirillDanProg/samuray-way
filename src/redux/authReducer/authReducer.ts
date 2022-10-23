@@ -14,14 +14,14 @@ const initialState = {
     login: null,
     isLogin: false
 }
-type ActionsType = ReturnType<typeof authMe> |
+export type AuthActionsType = ReturnType<typeof authMe> |
     ReturnType<typeof isLogin>
 
 export const USER_AUTH = "USER-AUTH"
 export const LOGINIZATION = "LOGINIZATION"
 
 
-export const authReducer = (state: initialAuthStateType = initialState, action: ActionsType): initialAuthStateType => {
+export const authReducer = (state: initialAuthStateType = initialState, action: AuthActionsType): initialAuthStateType => {
     switch (action.type) {
         case USER_AUTH:
             return {
