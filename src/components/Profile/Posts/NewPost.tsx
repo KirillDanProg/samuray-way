@@ -14,15 +14,20 @@ export const NewPost: FC<NewPostType> = (props) => {
         postText: string,
     };
 
-        const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-        const onSubmit: SubmitHandler<Inputs> = data => addPost(data.postText);
+    const {register, handleSubmit, resetField, formState: {errors}} = useForm<Inputs>();
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        addPost(data.postText)
+        resetField('postText');
+    };
 
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("postText")} />
-                {errors.postText && <span>This field is required</span>}
-                <input type="submit" />
+                <input className={errors.postText ? styles.error : ""} {...register("postText", {required: true})} />
+                <div>
+                    {errors.postText && <span className={styles.errorMessage}>This field is required</span>}
+                </div>
+                <input type="submit"/>
             </form>
         </>
     )

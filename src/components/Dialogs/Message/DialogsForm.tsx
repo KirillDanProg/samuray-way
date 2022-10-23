@@ -11,8 +11,9 @@ type DialogsPropsType = {
 export const DialogsForm: FC<DialogsPropsType> = ({onSubmit}) => {
     const onSubmitHandler: SubmitHandler<DialogsFormType> = data => {
         onSubmit(data.message)
+        resetField("message")
     }
-    const {register, handleSubmit, formState: {errors}} = useForm<DialogsFormType>();
+    const {register, handleSubmit, resetField, formState: {errors}} = useForm<DialogsFormType>();
 
 
     return (
