@@ -9,40 +9,40 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import LoginContainer from "./components/Login/LoginContainer";
-import {authMeTC} from "./redux/authReducer/authReducer";
 import {useAppDispatch, useAppSelector} from "./common/hooks";
+import Loader from "./common/Loader/Loader";
+import {appInit} from "./redux/appReducer/app-reducer";
 
 
 const App = () => {
-    const email = useAppSelector(state => state.auth.email)
+    const isAppInit = useAppSelector(state => state.application.isInit)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(authMeTC())
+        dispatch(appInit())
     }, [])
 
-    useEffect(() => {
-        dispatch(authMeTC())
-    }, [email])
-    return (
-        <BrowserRouter>
-            <div className="App">
-                <HeaderContainer/>
-                <Sidebar/>
-                <div className="AppContent">
-                    <Routes>
-                        <Route path="/profile" element={<Profile/>}>
-                            <Route path={":userId"}/>
-                        </Route>
-                        <Route path="/dialogs" element={<DialogsContainer/>}/>
-                        <Route path="/users" element={<UsersContainer/>}/>
-                        <Route path="/friends" element={<Friends/>}/>
-                        <Route path="/login" element={<LoginContainer/>}/>
-                    </Routes>
+    return !isAppInit ? <Loader/>
+        :
+        (
+            <BrowserRouter>
+                <div className="App">
+                    <HeaderContainer/>
+                    <Sidebar/>
+                    <div className="AppContent">
+                        <Routes>
+                            <Route path="/profile" element={<Profile/>}>
+                                <Route path={":userId"}/>
+                            </Route>
+                            <Route path="/dialogs" element={<DialogsContainer/>}/>
+                            <Route path="/users" element={<UsersContainer/>}/>
+                            <Route path="/friends" element={<Friends/>}/>
+                            <Route path="/login" element={<LoginContainer/>}/>
+                        </Routes>
+                    </div>
                 </div>
-            </div>
-        </BrowserRouter>
-    );
+            </BrowserRouter>
+        );
 }
 
 export default App;
