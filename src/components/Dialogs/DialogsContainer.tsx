@@ -4,17 +4,17 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {compose, Dispatch} from "redux";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
-import {AppType} from "../../redux/store";
+import {RootState} from "../../redux/store";
 import {DialogType, MessageDataType} from "../../types /DialogsType/DialogsTypes";
 
 type MapStateToPropsType = {
     dialogs: {
         dialogsData: Array<DialogType>
         messagesData: Array<MessageDataType>
-        messageText: string
+        // messageText: string
     }
 }
-const mapStateToProps = (state: AppType): MapStateToPropsType => {
+const mapStateToProps = (state: RootState): MapStateToPropsType => {
     return {
         dialogs: state.dialogs
     }

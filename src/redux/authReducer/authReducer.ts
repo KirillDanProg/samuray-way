@@ -45,7 +45,7 @@ export const authMe = (id: number | null, login: string | null, email: string | 
 
 export const authMeTC = () => {
     return (dispatch: any) => {
-        authAPI.me().then(response => response.data.data)
+       return authAPI.me().then(response => response.data.data)
             .then(data => {
                 dispatch(authMe(data.id, data.login, data.email ))
             })

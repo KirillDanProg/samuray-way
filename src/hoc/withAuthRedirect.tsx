@@ -1,7 +1,7 @@
 import React, {ElementType} from 'react';
 import {Navigate} from "react-router-dom";
 import {connect} from "react-redux";
-import {AppType} from "../redux/store";
+import {RootState} from "../redux/store";
 
 export function WithAuthRedirect(Component: ElementType<any>) {
 
@@ -11,11 +11,11 @@ export function WithAuthRedirect(Component: ElementType<any>) {
     }
 
     type MapStateToPropsType = {
-        isAuth: boolean
+        isAuth: string
     }
-    const mapStateToProps = (state: AppType): MapStateToPropsType => {
+    const mapStateToProps = (state: RootState): MapStateToPropsType => {
         return {
-            isAuth: state.auth.login
+            isAuth: state.auth.login as string
         }
     }
     const ConnectedRedirectComponent = connect(mapStateToProps)(RedirectComponent)

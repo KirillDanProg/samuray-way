@@ -3,6 +3,7 @@ import styles from "./Profile.module.css"
 import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
 import EditableSpan from "../../common/superComponents/EditableSpan";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import Loader from "../../common/Loader/Loader";
 
 
 type ProfileInfoType = {
@@ -32,7 +33,7 @@ type ProfileInfoType = {
             </div>
         )
     } else {
-        return <div>Something went wrong</div>
+        return <Loader/>
     }
 
 }

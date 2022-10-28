@@ -1,7 +1,7 @@
 import React from "react"
 import Login, {LoginDataType} from "./Login";
 import {connect} from "react-redux";
-import {AppType, RootState} from "../../redux/store";
+import { RootState} from "../../redux/store";
 import {AnyAction} from "redux";
 import {loginTC} from "../../redux/authReducer/authReducer";
 import {ThunkDispatch} from "redux-thunk";
@@ -37,7 +37,7 @@ const mapStateToProps = (state: RootState): MSTPType => {
         login: state.auth.login
     }
 }
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): MDTPType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AnyAction>): MDTPType => {
     return {
         authorization: (data: LoginDataType) => {
             dispatch(loginTC(data))

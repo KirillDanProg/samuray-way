@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {ProfileDataType} from "../../types /ProfileType/ProfileTypes";
-import {AppActionsType, AppType} from "../../redux/store";
+import {AppActionsType, RootState} from "../../redux/store";
 import {changeUserStatusTC, getProfileDataTC, getUserStatusTC} from "../../redux/profileReducer/profile-reducer";
 import {compose} from "redux";
 import {ThunkDispatch} from "redux-thunk";
@@ -56,14 +56,14 @@ type MapDispatchType = {
 }
 
 
-const mapStateToProps = (state: AppType): MapStatePropsType => {
+const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
         profileData: state.profile.profileData,
-        authID: state.auth.id,
+        authID: state.auth.id as number,
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AppActionsType>): MapDispatchType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AppActionsType>): MapDispatchType => {
     return {
         getProfileData: (userId: number) => {
             dispatch(getProfileDataTC(userId))

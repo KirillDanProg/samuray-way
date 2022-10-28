@@ -3,7 +3,7 @@ import {addPostAC, deletePostAC} from "../../../redux/profileReducer/profile-red
 import {ProfileType} from "../../../types /ProfileType/ProfileTypes";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {AppType} from "../../../redux/store";
+import {RootState} from "../../../redux/store";
 import {Posts} from "./Posts";
 
 
@@ -16,7 +16,7 @@ type MapDispatchPropsType = {
     deletePost: (id: string) => void
 }
 
-const mapStateToProps = (state: AppType): MapStatePropsType => {
+const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
         profile: state.profile,
     }

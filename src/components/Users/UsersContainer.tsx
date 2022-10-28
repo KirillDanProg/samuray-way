@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {AppType, RootState} from "../../redux/store";
+import {RootState} from "../../redux/store";
 import {AnyAction, compose} from "redux";
 import {
     followTC, getUsersTC,
@@ -44,7 +44,7 @@ const mapStateToProps = (state: RootState): MapStateType => {
         users: state.users,
     }
 }
-const mapDispatchToProps = (dispatch: ThunkDispatch<AppType, void, AnyAction>): MapDispatchType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AnyAction>): MapDispatchType => {
     return {
         getUsers: (page: number, count: number) => {
             dispatch(getUsersTC(page, count))

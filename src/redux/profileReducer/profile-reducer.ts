@@ -3,6 +3,7 @@ import img from "../../assets/images.jpeg"
 import {PostDataType, ProfileDataType, ProfileType} from "../../types /ProfileType/ProfileTypes";
 import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../../api/api";
+import {AppThunk} from "../store";
 
 export type ProfileActionsType = ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
@@ -93,13 +94,15 @@ export const setProfileDataAC = (data: ProfileDataType) => {
 
 
 // THUNK CREATORS
-export const getProfileDataTC = (userId: number) => {
-    return (dispatch: Dispatch) => {
-        userAPI.getProfileData(userId)
+export const getProfileDataTC = (userId: number): AppThunk => {
+    return (dispatch: Dispatch, getState) => {
+      return  userAPI.getProfileData(userId)
             .then(data => {
-                dispatch(setProfileDataAC(data))
                 profileAPI.getUserStatus(userId)
-                    .then(data => dispatch(getUserStatusAC(data)))
+                    .then(status => {
+                        const profileData = {...data, status}
+                        dispatch(setProfileDataAC(profileData))
+                    })
                     .catch(err => console.warn(err))
             })
             .catch(e => {

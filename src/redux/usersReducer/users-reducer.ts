@@ -1,5 +1,5 @@
 import {ThunkDispatch} from "redux-thunk";
-import {AppType} from "../store";
+import {RootState} from "../store";
 import {AnyAction} from "redux";
 import {userAPI} from "../../api/api";
 
@@ -104,7 +104,7 @@ export const setDisableAC = (id: string | null) => {
 
 // THUNK CREATORS
 export const getUsersTC = (page: number, count: number) => {
-    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+    return (dispatch: ThunkDispatch<RootState, void, AnyAction>) => {
         userAPI.getUsers(page, count)
             .then(data => {
                 dispatch(setUsersAC(data.items))
@@ -113,7 +113,7 @@ export const getUsersTC = (page: number, count: number) => {
     }
 }
 export const followTC = (id: string) => {
-    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+    return (dispatch: ThunkDispatch<RootState, void, AnyAction>) => {
         setDisableAC(id)
         userAPI.follow(id).then(data => {
             if (data.resultCode === 0) {
@@ -124,7 +124,7 @@ export const followTC = (id: string) => {
     }
 }
 export const unfollowTC = (id: string) => {
-    return (dispatch: ThunkDispatch<AppType, void, AnyAction>) => {
+    return (dispatch: ThunkDispatch<RootState, void, AnyAction>) => {
         userAPI.unfollow(id).then(data => {
             if (data.resultCode === 0) {
                 dispatch(unfollowAC(id))
