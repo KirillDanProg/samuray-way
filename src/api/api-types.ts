@@ -16,4 +16,10 @@ export type GetUsersType = {
     totalCount: number
     error: string | null
 }
+export enum ResultCode {
+    Ok = 0,
+    Failed = 1,
+    Captcha = 2
+}
 
+export type RequestStatusType = "idle" | "failed" | "succeeded" | "loading"
