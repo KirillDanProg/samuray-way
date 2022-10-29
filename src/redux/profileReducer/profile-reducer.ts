@@ -1,9 +1,9 @@
 import {v1} from "uuid";
 import img from "../../assets/images.jpeg"
 import {PostDataType, ProfileDataType, ProfileType} from "../../types /ProfileType/ProfileTypes";
-import {Dispatch} from "redux";
 import {profileAPI, userAPI} from "../../api/api";
 import {AppThunk} from "../store";
+import {ResultCode} from "../../api/api-types";
 
 export type ProfileActionsType = ReturnType<typeof deletePostAC> |
     ReturnType<typeof updatePostTextAC> |
@@ -78,6 +78,7 @@ export const updatePostTextAC = (newPostText: string) => {
     } as const
 }
 
+
 export const deletePostAC = (id: string) => {
     return {
         type: DELETE_POST,
@@ -94,41 +95,34 @@ export const setProfileDataAC = (data: ProfileDataType) => {
 
 
 // THUNK CREATORS
-export const getProfileDataTC = (userId: number): AppThunk => {
-    return (dispatch: Dispatch, getState) => {
-      return  userAPI.getProfileData(userId)
-            .then(data => {
-                profileAPI.getUserStatus(userId)
-                    .then(status => {
-                        const profileData = {...data, status}
-                        dispatch(setProfileDataAC(profileData))
-                    })
-                    .catch(err => console.warn(err))
-            })
-            .catch(e => {
-                console.warn(e.message)
-            })
-    }
+export const getProfileDataTC = (userId: number): AppThunk => dispatch => {
+    return userAPI.getProfileData(userId)
+        .then(data => {
+            profileAPI.getUserStatus(userId)
+                .then(status => {
+                    const profileData = {...data, status}
+                    dispatch(setProfileDataAC(profileData))
+                })
+                .catch(err => console.warn(err))
+        })
+        .catch(e => {
+            console.warn(e.message)
+        })
+}
 
+export const changeUserStatusTC = (status: string): AppThunk => dispatch => {
+    profileAPI.updateUserStatus(status)
+        .then(res => {
+            if (res.resultCode === ResultCode.Ok) {
+                dispatch(updateUserStatusAC(status))
+            }
+        })
+        .catch(err => console.warn(err))
 }
-export const changeUserStatusTC = (status: string) => {
-    debugger
-    return (dispatch: Dispatch) => {
-        profileAPI.updateUserStatus(status)
-            .then(res => {
-                if (res.resultCode === 0) {
-                    dispatch(updateUserStatusAC(status))
-                }
-            })
-            .catch(err => console.warn(err))
-    }
-}
-export const getUserStatusTC = (id: number) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getUserStatus(id)
-            .then(data => dispatch(getUserStatusAC(data)))
-            .catch(err => console.warn(err))
-    }
+export const getUserStatusTC = (id: number): AppThunk => dispatch => {
+    profileAPI.getUserStatus(id)
+        .then(data => dispatch(getUserStatusAC(data)))
+        .catch(err => console.warn(err))
 }
 
 export default profileReducer

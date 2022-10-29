@@ -1,6 +1,8 @@
 import {authAPI} from "../../api/api";
 import {Dispatch} from "redux";
 import {LoginDataType} from "../../components/Login/Login";
+import {ResultCode} from "../../api/api-types";
+import {AppThunk} from "../store";
 
 export type initialAuthStateType = {
     id: number | null
@@ -43,34 +45,28 @@ export const authMe = (id: number | null, login: string | null, email: string | 
 }
 
 
-export const authMeTC = () => {
-    return (dispatch: any) => {
-       return authAPI.me().then(response => response.data.data)
-            .then(data => {
-                dispatch(authMe(data.id, data.login, data.email ))
-            })
-    }
-}
-export const loginTC = (data: LoginDataType) => {
-    return (dispatch: Dispatch) => {
-        authAPI.login(data).then(res => {
-            if (res.data.resultCode === 0) {
-                authAPI.me().then(response => response.data.data)
-                    .then(data => {
-                        dispatch(authMe(data.id, data.login, data.email ))
-                    })
-            }
+export const authMeTC = (): AppThunk => dispatch => {
+    return authAPI.me().then(response => response.data.data)
+        .then(data => {
+            dispatch(authMe(data.id, data.login, data.email))
         })
-    }
+}
+export const loginTC = (data: LoginDataType): AppThunk => dispatch => {
+    authAPI.login(data).then(res => {
+        if (res.data.resultCode === ResultCode.Ok) {
+            authAPI.me().then(response => response.data.data)
+                .then(data => {
+                    dispatch(authMe(data.id, data.login, data.email))
+                })
+        }
+    })
 }
 
-export const logoutTC = () => {
-    return (dispatch: Dispatch) => {
-        authAPI.logout()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(authMe(null, null, null))
-                }
-            })
-    }
+export const logoutTC = (): AppThunk => dispatch => {
+    authAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === ResultCode.Ok) {
+                dispatch(authMe(null, null, null))
+            }
+        })
 }
