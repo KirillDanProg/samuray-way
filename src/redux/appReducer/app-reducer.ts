@@ -1,12 +1,20 @@
 import {authMeTC} from "../authReducer/authReducer";
 import {getProfileDataTC} from "../profileReducer/profile-reducer";
 import {AppThunk} from "../store";
+import {AxiosError} from "axios";
+import {RequestStatusType} from "../../api/api-types";
+import {serverErrorsHandlers} from "../../utils/error-utils";
 
 const initialState = {
+    status: "idle" as RequestStatusType,
+    error: null as string | null,
     isInit: false
 }
 export type InitStateType = typeof initialState
-export type ActionType = ReturnType<typeof setAppInitializing>
+export type ActionType =
+    ReturnType<typeof setAppInitializing>
+    | ReturnType<typeof setAppStatus>
+    | ReturnType<typeof setAppError>
 
 
 export const appReducer = (state: InitStateType = initialState, action: ActionType): InitStateType => {
@@ -15,6 +23,16 @@ export const appReducer = (state: InitStateType = initialState, action: ActionTy
             return {
                 ...state,
                 isInit: action.payload.initStatus
+            }
+        case "SET-APP-STATUS":
+            return {
+                ...state,
+                status: action.status
+            }
+        case "SET-APP-ERROR":
+            return {
+                ...state,
+                error: action.error
             }
         default:
             return state
@@ -29,6 +47,18 @@ export const setAppInitializing = (initStatus: boolean) => {
         }
     } as const
 }
+export const setAppStatus = (status: RequestStatusType) => {
+    return {
+        type: "SET-APP-STATUS",
+        status
+    } as const
+}
+export const setAppError = (error: string) => {
+    return {
+        type: "SET-APP-ERROR",
+        error
+    } as const
+}
 
 export const appInit = (): AppThunk => (dispatch, getState) => {
     dispatch(setAppInitializing(false))
@@ -37,9 +67,15 @@ export const appInit = (): AppThunk => (dispatch, getState) => {
             const userID = getState().auth.id
             dispatch(getProfileDataTC(userID as number))
                 .then(res => {
-                    dispatch(setAppInitializing(true))
-                })
+                    // fake loading for PRELOADER testing
+                    setTimeout(() => {
+                        dispatch(setAppInitializing(true))
+                    }, 5000)
 
+                })
+        })
+        .catch((e: AxiosError) => {
+            serverErrorsHandlers(dispatch, e.message)
         })
 
 }

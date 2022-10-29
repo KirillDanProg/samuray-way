@@ -3,7 +3,9 @@ let initialState: InitStateType
 
 beforeEach(() => {
     initialState = {
-        isInit: true
+        isInit: true,
+        error: null,
+        status: "idle"
     }
 })
 
