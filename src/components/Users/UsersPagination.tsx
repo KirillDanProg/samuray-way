@@ -10,11 +10,13 @@ type PaginationPropsType = {
 }
 
 export const UsersPagination: FC<PaginationPropsType> = (props) => {
+
     const pages: number[] = []
     const totalPages = props.total / props.count
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
     }
+
     return (
         <div className={styles.pagination}>
             {pages.map(p => {
