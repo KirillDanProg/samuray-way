@@ -8,9 +8,10 @@ import {
     setPageAC, setTotalAC,
     unfollowTC,
 } from "../../redux/usersReducer/users-reducer";
-import {Users} from "./UsersF";
+import {Users} from "./Users";
 import {ThunkDispatch} from "redux-thunk";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {getUsers} from "../../selectors/users-selector";
 
 export type UsersPropsType = MapStateType & MapDispatchType
 
@@ -41,7 +42,9 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
 const mapStateToProps = (state: RootState): MapStateType => {
     return {
-        users: state.users,
+
+        users: getUsers(state),
+
     }
 }
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, AnyAction>): MapDispatchType => {

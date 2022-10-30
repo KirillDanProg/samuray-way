@@ -7,6 +7,7 @@ import {compose} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {withRouter} from "../../hoc/withRouter";
 import ProfileInfo from "./ProfileInfo";
+import {getAuthId, getProfileData} from "../../selectors/profile-selector";
 
 type ParamsType = {
     userId: number
@@ -58,8 +59,8 @@ type MapDispatchType = {
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        profileData: state.profile.profileData,
-        authID: state.auth.id as number,
+        profileData: getProfileData(state),
+        authID: getAuthId(state) as number,
     }
 }
 

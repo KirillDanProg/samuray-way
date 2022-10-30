@@ -9,7 +9,7 @@ type PaginationPropsType = {
     changePage: (p: number) => void
 }
 export const Pagination: FC<PaginationPropsType> = (props) => {
-    const [pageCount, setPageCount] = useState(1);
+    const [pageCount, setPageCount] = useState(Math.ceil(props.total / props.count));
 
     useEffect(() => {
         setPageCount(Math.ceil(props.total / props.count));

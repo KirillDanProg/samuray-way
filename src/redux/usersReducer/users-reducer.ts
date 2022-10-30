@@ -12,10 +12,10 @@ export type User = {
 }
 const initialState = {
     users: [] as User[],
-    error: "" as string,
-    total: 0 as number,
-    count: 10 as number,
-    page: 1 as number,
+    error: "" ,
+    total: 0 ,
+    count: 10 ,
+    page: 1 ,
     disabled: null as string | null
 }
 export type InitialUsersStateType = typeof initialState
